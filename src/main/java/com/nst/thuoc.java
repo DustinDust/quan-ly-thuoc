@@ -26,10 +26,10 @@ public class thuoc {
   public void setCoeff(double coeff) {
     this.coeff = coeff;
   }
-  public void setColor(double color) {
+  public void setColo(String color) {
     this.color = color;
   }
-  public void setShape(double shape) {
+  public void setShape(String shape) {
     this.shape = shape;
   }
 
@@ -111,7 +111,6 @@ class thuocNuoc extends thuoc {
     }
     
     public double priceOUT(double priceIN, double coeff, double ml){
-      double priceOUT = ml * priceIN * coeff;
-      return priceOUT;
+        return ml * priceIN * coeff;
     }
   }
