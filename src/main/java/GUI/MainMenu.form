@@ -73,7 +73,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Image/home2.png"/>
+          <Image iconType="3" name="/GUI/Image/home2.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Ch&#xe0;o m&#x1eeb;ng &#x111;&#x1ebf;n v&#x1edb;i h&#x1ec7; th&#x1ed1;ng qu&#x1ea3;n l&#xfd; thu&#x1ed1;c"/>
       </Properties>

@@ -37,7 +37,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/home2.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Image/home2.png"))); // NOI18N
         jLabel1.setText("Chào mừng đến với hệ thống quản lý thuốc");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
