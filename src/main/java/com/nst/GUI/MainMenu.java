@@ -36,6 +36,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Documents\\quan-ly-thuoc\\src\\main\\resources\\iconset4\\home2.png")); // NOI18N
         jLabel1.setText("Chào mừng đến với hệ thống quản lý thuốc");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -43,6 +44,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel2.setText("Lựa chọn vai trò sử dụng của bạn");
 
         ManagerButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        ManagerButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Documents\\quan-ly-thuoc\\src\\main\\resources\\iconset4\\Occupations-Technical-Support-Representative-Male-Light-icon.png")); // NOI18N
         ManagerButton.setText("Người quản lý");
         ManagerButton.setBorder(null);
         ManagerButton.setMaximumSize(new java.awt.Dimension(161, 49));
