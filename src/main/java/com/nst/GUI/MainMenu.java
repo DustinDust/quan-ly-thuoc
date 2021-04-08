@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package com.nst.GUI;
 
 /**
  *
@@ -33,11 +33,9 @@ public class MainMenu extends javax.swing.JFrame {
         CustomerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 400));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home2.png"))); // NOI18N
         jLabel1.setText("Chào mừng đến với hệ thống quản lý thuốc");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N

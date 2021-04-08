@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package com.nst.GUI;
 
 /**
  *
@@ -38,7 +38,6 @@ public class SignIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Login-icon-32.png"))); // NOI18N
         jLabel1.setText("ĐĂNG NHẬP");
         jLabel1.setToolTipText("");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -55,7 +54,7 @@ public class SignIn extends javax.swing.JFrame {
 
         PasswordText.setText("Mật khẩu");
 
-        OkSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ok-icon.png"))); // NOI18N
+        OkSignIn.setText("OK");
         OkSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OkSignInActionPerformed(evt);
@@ -63,7 +62,6 @@ public class SignIn extends javax.swing.JFrame {
         });
 
         BackSignInButton.setBackground(new java.awt.Color(51, 255, 255));
-        BackSignInButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Fast-backward-icon2-48.png"))); // NOI18N
         BackSignInButton.setActionCommand("Back");
         BackSignInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
