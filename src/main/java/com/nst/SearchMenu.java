@@ -28,7 +28,7 @@ public class SearchMenu extends javax.swing.JFrame {
     private void Table_Display()
     {
         model = (DefaultTableModel) jTable2.getModel();
-        List<thuoc> MedicineList1 = thuocHelper.danhsach();         //gọi hàm lấy danh sách tất cả các thuốc trả về list thuốc     
+        List<thuoc> MedicineList1 = thuocHelper.danhsach(ExcelHelper.thuocData);         //gọi hàm lấy danh sách tất cả các thuốc trả về list thuốc
         int n=MedicineList1.size();
         for(int i=0;i<n;i++)
         {
@@ -36,7 +36,7 @@ public class SearchMenu extends javax.swing.JFrame {
             thuoc temp=MedicineList1.get(i);            
             String id= temp.getCode();
             String name=temp.getName();
-            int stock=temp.getStocks();
+            double stock=temp.getStocks();
             double pricein=temp.getPriceIn();
             double priceout= temp.getPriceIn()*temp.getCoeff();
             String color=temp.getColor();
@@ -174,7 +174,7 @@ public class SearchMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Hàm tìm kiếm thuốc
         String MedicineName = SearchingTextField.getText();
-        List<thuoc> MedicineList = thuocHelper.timkiem(MedicineName);
+        List<thuoc> MedicineList = thuocHelper.timkiem(MedicineName, ExcelHelper.thuocData);
         for(thuoc i : MedicineList)
         {
             
