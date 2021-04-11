@@ -1,10 +1,10 @@
-package com.thuoc;
+package com.nst.Medicine;
 
-public class thuocBot extends thuoc {
+public class PowderedMedicine extends Medicine {
 
     private double mg;
-    thuocBot(String code, String name, int stocks, double priceIN, double coeff, String color, String shape, int numberOut,double mg) { 
-      super(code, name, stocks, priceIN, coeff, color, shape, numberOut);
+    PowderedMedicine(String code, String name, int stocks, double priceIN, double coeff, String color, String shape,double mg) { 
+      super(code, name, stocks, priceIN, coeff, color, shape);
       this.mg=mg;
     }
 

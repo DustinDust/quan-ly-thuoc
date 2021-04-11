@@ -1,10 +1,10 @@
-package com.thuoc;
+package com.nst.Medicine;
 
-public class thuocNuoc extends thuoc {
+public class LiquidMedicine extends Medicine {
 
     private double ml;
-    thuocNuoc(String code, String name, int stocks, double priceIN, double coeff, String color, String shape, int numberOut,double ml) { 
-      super(code, name, stocks, priceIN, coeff, color, shape, numberOut);
+    LiquidMedicine(String code, String name, int stocks, double priceIN, double coeff, String color, String shape, int numberOut,double ml) { 
+      super(code, name, stocks, priceIN, coeff, color, shape);
       this.ml=ml;
     }  
     public void setMg(double ml) {
