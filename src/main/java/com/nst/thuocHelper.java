@@ -1,6 +1,7 @@
 package com.nst;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class thuocHelper {
@@ -25,7 +26,7 @@ public class thuocHelper {
         list.add(test);
         return list;
     }
-    public static List<thuoc> Statistic(String begin,String end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
+    public static List<thuoc> Statistic(Date begin,Date end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
     {
         return null;      
     }
