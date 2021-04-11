@@ -1,19 +1,18 @@
-package com.thuoc;
+package com.nst.Medicine;
 
 import java.lang.reflect.Constructor;
 
-public class thuoc {
+public class Medicine {
 
   private String code;
   private String name;
-  private int stocks;
+  private double stocks;
   private double priceIN;
   private double coeff;
   private String color;
   private String shape;
-  private int numberOut;
 
-  thuoc(String code, String name, int stocks, double priceIN, double coeff, String color, String shape, int numberOut) {
+  Medicine(String code, String name, double stocks, double priceIN, double coeff, String color, String shape) {
     this.code = code;
     this.name = name;
     this.stocks = stocks;
@@ -21,15 +20,6 @@ public class thuoc {
     this.coeff = coeff;
     this.color = color;
     this.shape = shape;
-    this.numberOut = numberOut;
-  }
-
-  public int getNumberOut() {
-    return numberOut;
-  }
-
-  public void setNumberOut(int numberOut) {
-    this.numberOut = numberOut;
   }
 
   public void setCode(String code) {
@@ -40,7 +30,7 @@ public class thuoc {
     this.name = name;
   }
 
-  public void setStocks(int stocks) {
+  public void setStocks(double stocks) {
     this.stocks = stocks;
   }
 
@@ -68,7 +58,7 @@ public class thuoc {
     return name;
   }
 
-  public int getStocks() {
+  public double getStocks() {
     return stocks;
   }
 
@@ -97,12 +87,22 @@ public class thuoc {
     String stocks = String.valueOf(this.stocks);
     String priceIN = String.valueOf(this.priceIN);
     String coeff = String.valueOf(this.coeff);
-    String numberOut = String.valueOf(this.numberOut);
-    String info[] = { code, name, stocks, priceIN, coeff, color, shape, numberOut };
+    String info[] = { code, name, stocks, priceIN, coeff, color, shape, };
     return info;
   }
 
-  public int addStocks(int ammount) {
-    return (stocks + ammount);
+  public void addStocks(double amount) {
+    stocks = stocks + amount;
+  }
+
+  public int check(Medicine a) {
+    if (this.code.equals(a.code)) {
+      if (this.name.equals(a.name) && this.coeff == a.coeff && this.color.equals(a.color) && this.priceIN == a.priceIN
+          && this.shape.equals(a.shape) && this.stocks == a.stocks) {
+        return 1;
+      } else
+        return 0;
+    } else
+      return -1;
   }
 }
