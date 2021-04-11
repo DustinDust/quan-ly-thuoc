@@ -9,7 +9,15 @@ public class thuoc {
   private double coeff;
   private String color;
   private String shape;
+  private int numberOut;
 
+    public int getNumberOut() {
+        return numberOut;
+    }
+
+    public void setNumberOut(int numberOut) {
+        this.numberOut = numberOut;
+    }
 
   public void setCode(String code) {
     this.code = code;
@@ -26,7 +34,7 @@ public class thuoc {
   public void setCoeff(double coeff) {
     this.coeff = coeff;
   }
-  public void setColo(String color) {
+  public void setColor(String color) {
     this.color = color;
   }
   public void setShape(String shape) {
@@ -34,25 +42,25 @@ public class thuoc {
   }
 
 
-  public String getCode(String code) {
+  public String getCode() {
     return code;
   }
-  public String getName(String name) {
+  public String getName() {
     return name;
   }
-  public int getStocks(int stocks) {
+  public int getStocks() {
     return stocks;
   }
-  public double getPriceIn(double priceIN) {
+  public double getPriceIn() {
     return priceIN;
   }
-  public double getCoeff(double coeff) {
+  public double getCoeff() {
     return coeff;
   }
-  public String getColor(String color) {
+  public String getColor() {
     return color;
   }
-  public String getShape(String shape) {
+  public String getShape() {
     return shape;
   }
 
