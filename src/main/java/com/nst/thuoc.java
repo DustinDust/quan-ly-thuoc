@@ -4,7 +4,7 @@ public class thuoc {
 
   private String code;
   private String name;
-  private int stocks;
+  private double stocks;
   private double priceIN;
   private double coeff;
   private String color;
@@ -25,7 +25,7 @@ public class thuoc {
   public void setName(String name) {
     this.name = name;
   }
-  public void setStocks(int stocks) {
+  public void setStocks(double stocks) {
     this.stocks = stocks;
   }
   public void setPriceIn(double priceIN) {
@@ -48,7 +48,7 @@ public class thuoc {
   public String getName() {
     return name;
   }
-  public int getStocks() {
+  public double getStocks() {
     return stocks;
   }
   public double getPriceIn() {

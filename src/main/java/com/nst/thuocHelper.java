@@ -1,32 +1,105 @@
 package com.nst;
 
-import java.util.ArrayList;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 public class thuocHelper {
-    
-    public static List<thuoc> timkiem(String name)
+
+    private static DateTimeFormatter  dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH.mm.ss");
+
+    public static List<thuoc> timkiem(String name, HashMap<String, thuoc> data)
     {
-        //ham go here  (tìm kiếm 1 tên thuốc)
-        return null;
+        List<thuoc> ToReturn = new ArrayList<>();
+        for (String i : data.keySet())
+        {
+            if(i.toLowerCase().contains(name.toLowerCase()));
+            {
+                ToReturn.add(data.get(i));
+            }
+        }
+        for(thuoc i : data.values())
+        {
+            if(i.getName().toLowerCase().contains(name.toLowerCase())
+                && !ToReturn.contains(i))
+            {
+                ToReturn.add(i);
+            }
+        }
+        return ToReturn;
     }
-    public static List<thuoc> danhsach()
+    public static List<thuoc> danhsach(HashMap<String, thuoc> data)
     {
-        //ham go here(lấy danh sách tất cả thuốc trong database), tôi tạo list 1 cái để đỡ nullpointerexception
-        List<thuoc> list= new ArrayList<thuoc>() {};
-        thuoc test=new thuoc();
-        test.setCode("10");
-        test.setName("Paradon");
-        test.setColor("Blue");
-        test.setCoeff(1.5);
-        test.setPriceIn(10);
-        test.setShape("circle");
-        test.setStocks(100);
-        list.add(test);
-        return list;
+        List<thuoc> ToReturn = new ArrayList<>();
+        for(String i : data.keySet())
+        {
+            ToReturn.add(data.get(i));
+        }
+        return ToReturn;
+
     }
-    public static List<thuoc> Statistic(String begin,String end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
+    public static Object[][] Statistic(String begin,String end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
     {
+        //nothing for now
         return null;      
+    }
+
+    public static void NhapThuoc(thuoc thuocObject, double amount, HashMap<String, thuoc> data)
+    {
+        if(data.containsKey(thuocObject.getCode()))
+        {
+            thuoc ethuoc = data.get(thuocObject.getCode());
+            ethuoc.setStocks(ethuoc.getStocks() + amount);
+        }
+        else data.put(thuocObject.getCode(), thuocObject);
+    }
+
+    public static void BanThuoc(String key, double amount, HashMap<String, thuoc> data) throws Exception
+    {
+        if(data.containsKey(key))
+        {
+
+            try
+            {
+                NhapThuoc(data.get(key), -amount, data);
+                XuatHoaDon(data.get(key), amount);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+        else throw new Exception();
+
+    }
+
+    public static void XuatHoaDon(thuoc obj, double amount) throws IOException
+    {
+        Path billPath;
+        LocalDateTime now = LocalDateTime.now();
+        String billFileName = dtf.format(now) + " - " + obj.getCode();
+        billPath = Paths.get("bills/" + billFileName + ".tdt").toAbsolutePath();
+        Files.createFile(billPath);
+        FileWriter writer = new FileWriter(billPath.toFile());
+        BufferedWriter output = new BufferedWriter(writer);
+        output.write(obj.getCode());
+        output.newLine();
+        output.write(obj.getName());
+        output.newLine();
+        output.write(Double.toString(obj.getCoeff()* obj.getPriceIn()));
+        output.newLine();
+        output.write(Double.toString(amount));
+        output.close();
+        writer.close();
     }
 }

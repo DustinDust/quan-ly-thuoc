@@ -147,7 +147,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
         // TODO add your handling code here:
         String begin= BeginComboBox.getSelectedItem().toString();
         String end= EndComboBox.getSelectedItem().toString();
-        List<thuoc> listOfMedicine = thuocHelper.Statistic(begin,end);      // gọi hàm Statistic thống kê trong một khoảng thời gian
+        Object[][] listOfMedicine = thuocHelper.Statistic(begin,end);      // gọi hàm Statistic thống kê trong một khoảng thời gian
         DefaultTableModel Model = new DefaultTableModel()
         {
             @Override
@@ -158,25 +158,25 @@ public class EconomyStatistic extends javax.swing.JFrame {
         };
         jTable1.setModel(Model);
         Model=(DefaultTableModel)jTable1.getModel();
-        int n= listOfMedicine.size();
-        double Sum=0;
-        for(int i=0;i<n;i++)
-        {
-            thuoc Medicine = listOfMedicine.get(i);
-            String id= Medicine.getCode();
-            String name= Medicine.getName();
-            double pricein= Medicine.getPriceIn();
-            double priceout= Medicine.getPriceIn()*Medicine.getCoeff();
-            double numberOut= Medicine.getNumberOut();
-            double profit= Medicine.getCoeff()*Medicine.getNumberOut();
-            Sum+=profit;
-            Model.addRow(new Object[]
-            {
-                        name,pricein,priceout,numberOut,profit
-            }
-                    );
-        }
-        SumLabel.setText("Tổng doanh thu: "+String.valueOf(Sum));
+//        int n= listOfMedicine.size();
+//        double Sum=0;
+//        for(int i=0;i<n;i++)
+//        {
+//            thuoc Medicine = listOfMedicine.get(i);
+//            String id= Medicine.getCode();
+//            String name= Medicine.getName();
+//            double pricein= Medicine.getPriceIn();
+//            double priceout= Medicine.getPriceIn()*Medicine.getCoeff();
+//            double numberOut= Medicine.getNumberOut();
+//            double profit= Medicine.getCoeff()*Medicine.getNumberOut();
+//            Sum+=profit;
+//            Model.addRow(new Object[]
+//            {
+//                        name,pricein,priceout,numberOut,profit
+//            }
+//                    );
+//        }
+//        SumLabel.setText("Tổng doanh thu: "+String.valueOf(Sum));
     }//GEN-LAST:event_OkStatisticButtonActionPerformed
 
     private void BeginComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeginComboBoxActionPerformed
