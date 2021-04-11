@@ -132,7 +132,6 @@ public class SignIn extends javax.swing.JFrame {
            Notification TB = new Notification();
            TB.setVisible(true);      
        }
-       jPanel1.setVisible(true);
     }//GEN-LAST:event_OkSignInActionPerformed
 
     private void BackSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackSignInButtonActionPerformed
