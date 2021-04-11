@@ -257,58 +257,58 @@ public class EconomyStatistic extends javax.swing.JFrame {
         return check;
     }
     private void OkStatisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkStatisticButtonActionPerformed
-        try {
-            // TODO add your handling code here
-            String beginDay= BeginDay.getSelectedItem().toString();
-            String beginMonth=BeginMonth.getSelectedItem().toString();
-            String beginYear=BeginYear.getSelectedItem().toString();
-            String endDay=EndDay.getSelectedItem().toString();
-            String endMonth=EndMonth.getSelectedItem().toString();
-            String endYear=EndYear.getSelectedItem().toString();
-            boolean check1= TimeChecker1(Integer.parseInt(beginDay),Integer.parseInt(beginMonth),Integer.parseInt(beginYear));
-            boolean check2= TimeChecker1(Integer.parseInt(endDay),Integer.parseInt(endMonth),Integer.parseInt(endYear));
-            boolean check3= TimeChecker2(Integer.parseInt(beginDay), Integer.parseInt(beginMonth), Integer.parseInt(beginYear)
-                    , Integer.parseInt(endDay), Integer.parseInt(endMonth), Integer.parseInt(endYear));
-            if(check1 ==false || check2==false || check3==false)
-            {
-                new TimeWrongNotification().setVisible(true);
-            }
-            
-            Date beginTime = new SimpleDateFormat("dd-MM-yyyy").parse(beginDay+"-"+beginMonth+"-"+beginYear);
-            Date endTime = new SimpleDateFormat("dd-MM-yyyy").parse(endDay+"-"+endMonth+"-"+endYear);
-            List<thuoc> listOfMedicine = thuocHelper.Statistic(beginTime,endTime);      // gọi hàm Statistic thống kê trong một khoảng thời gian
-            DefaultTableModel Model = new DefaultTableModel()
-            {
-                @Override
-                public boolean isCellEditable(int row,int column)
-                {
-                    return false;
-                }
-            };
-            jTable1.setModel(Model);
-            Model=(DefaultTableModel)jTable1.getModel();
-            int n= listOfMedicine.size();
-            double Sum=0;
-            for(int i=0;i<n;i++)
-            {
-                thuoc Medicine = listOfMedicine.get(i);
-                String id= Medicine.getCode();
-                String name= Medicine.getName();
-                double pricein= Medicine.getPriceIn();
-                double priceout= Medicine.getPriceIn()*Medicine.getCoeff();
-                double numberOut= Medicine.getNumberOut();
-                double profit= Medicine.getCoeff()*Medicine.getNumberOut();
-                Sum+=profit;
-                Model.addRow(new Object[]
-                {
-                    name,pricein,priceout,numberOut,profit
-                }
-                );
-            }
-            SumLabel.setText("Tổng doanh thu: "+String.valueOf(Sum));
-        } catch (ParseException ex) {
-            Logger.getLogger(EconomyStatistic.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            // TODO add your handling code here
+//            String beginDay= BeginDay.getSelectedItem().toString();
+//            String beginMonth=BeginMonth.getSelectedItem().toString();
+//            String beginYear=BeginYear.getSelectedItem().toString();
+//            String endDay=EndDay.getSelectedItem().toString();
+//            String endMonth=EndMonth.getSelectedItem().toString();
+//            String endYear=EndYear.getSelectedItem().toString();
+//            boolean check1= TimeChecker1(Integer.parseInt(beginDay),Integer.parseInt(beginMonth),Integer.parseInt(beginYear));
+//            boolean check2= TimeChecker1(Integer.parseInt(endDay),Integer.parseInt(endMonth),Integer.parseInt(endYear));
+//            boolean check3= TimeChecker2(Integer.parseInt(beginDay), Integer.parseInt(beginMonth), Integer.parseInt(beginYear)
+//                    , Integer.parseInt(endDay), Integer.parseInt(endMonth), Integer.parseInt(endYear));
+//            if(check1 ==false || check2==false || check3==false)
+//            {
+//                new TimeWrongNotification().setVisible(true);
+//            }
+//            
+//            Date beginTime = new SimpleDateFormat("dd-MM-yyyy").parse(beginDay+"-"+beginMonth+"-"+beginYear);
+//            Date endTime = new SimpleDateFormat("dd-MM-yyyy").parse(endDay+"-"+endMonth+"-"+endYear);
+//            Object[][] listOfMedicine = thuocHelper.Statistic(beginTime,endTime);      // gọi hàm Statistic thống kê trong một khoảng thời gian
+//            DefaultTableModel Model = new DefaultTableModel()
+//            {
+//                @Override
+//                public boolean isCellEditable(int row,int column)
+//                {
+//                    return false;
+//                }
+//            };
+//            jTable1.setModel(Model);
+//            Model=(DefaultTableModel)jTable1.getModel();
+//            int n= listOfMedicine.size();
+//            double Sum=0;
+//            for(int i=0;i<n;i++)
+//            {
+//                thuoc Medicine = listOfMedicine.get(i);
+//                String id= Medicine.getCode();
+//                String name= Medicine.getName();
+//                double pricein= Medicine.getPriceIn();
+//                double priceout= Medicine.getPriceIn()*Medicine.getCoeff();
+//                double numberOut= Medicine.getNumberOut();
+//                double profit= Medicine.getCoeff()*Medicine.getNumberOut();
+//                Sum+=profit;
+//                Model.addRow(new Object[]
+//                {
+//                    name,pricein,priceout,numberOut,profit
+//                }
+//                );
+//            }
+//            SumLabel.setText("Tổng doanh thu: "+String.valueOf(Sum));
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EconomyStatistic.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_OkStatisticButtonActionPerformed
 
     private void BeginDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeginDayActionPerformed

@@ -5,6 +5,10 @@
  */
 package com.nst;
 
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author admin
@@ -14,10 +18,29 @@ public class SearchResult extends javax.swing.JFrame {
     /**
      * Creates new form SearchResult
      */
-    public SearchResult() {
+    public SearchResult(String SearchingResult) {
         initComponents();
+        DefaultTableModel model2;      
+        List<thuoc> MedicineList = thuocHelper.timkiem(SearchingResult, ExcelHelper.thuocData);
+        System.out.println(MedicineList.size());
+        model2 = (DefaultTableModel) jTable1.getModel();
+        for(int i=0;i<MedicineList.size();i++)
+        {
+            thuoc temp=MedicineList.get(i);            
+            String id= temp.getCode();
+            String name=temp.getName();
+            double stock=temp.getStocks();
+            double pricein=temp.getPriceIn();
+            double priceout= temp.getPriceIn()*temp.getCoeff();
+            String color=temp.getColor();
+            String shape=temp.getShape();
+            model2.addRow(new Object[]{
+            id,name,stock,pricein,priceout,shape,color
+        }); 
+        }
     }
-
+ 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,8 +54,6 @@ public class SearchResult extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         SearchNotification.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
         SearchNotification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SearchNotification.setText("Kết quả tìm kiếm");
@@ -40,13 +61,10 @@ public class SearchResult extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã thuốc", "Tên thuốc", "Số lượng", "Giá nhập", "Giá xuất", "Hình dạng", "Màu sắc"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -109,7 +127,10 @@ public class SearchResult extends javax.swing.JFrame {
             }
         });
     }
-
+    public JTable getJTable()
+    {
+        return jTable1;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SearchNotification;
     private javax.swing.JScrollPane jScrollPane1;

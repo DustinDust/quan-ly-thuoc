@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class thuocHelper {
 
@@ -22,7 +23,7 @@ public class thuocHelper {
         List<thuoc> ToReturn = new ArrayList<>();
         for (String i : data.keySet())
         {
-            if(i.toLowerCase().contains(name.toLowerCase()));
+            if(i.toLowerCase().contains(name.toLowerCase()))
             {
                 ToReturn.add(data.get(i));
             }
@@ -47,7 +48,7 @@ public class thuocHelper {
         return ToReturn;
 
     }
-    public static Object[][] Statistic(String begin,String end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
+    public static Object[][] Statistic(Date begin,Date end)    //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
     {
         //nothing for now
         return null;      

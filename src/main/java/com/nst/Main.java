@@ -63,6 +63,10 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainMenu().setVisible(true);
+            }
+        });
     }
 }

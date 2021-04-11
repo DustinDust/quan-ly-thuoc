@@ -173,13 +173,10 @@ public class SearchMenu extends javax.swing.JFrame {
     private void OkSearchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkSearchingButtonActionPerformed
         // TODO add your handling code here:
         //Hàm tìm kiếm thuốc
-        String MedicineName = SearchingTextField.getText();
-        List<thuoc> MedicineList = thuocHelper.timkiem(MedicineName, ExcelHelper.thuocData);
-        for(thuoc i : MedicineList)
-        {
-            
-        }
-        
+
+        String SearchingResult = SearchingTextField.getText();
+        SearchResult result= new SearchResult(SearchingResult);
+        result.setVisible(true);        
     }//GEN-LAST:event_OkSearchingButtonActionPerformed
 
     private void StatisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatisticButtonActionPerformed
