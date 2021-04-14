@@ -12,7 +12,7 @@ public class Medicine {
   private String color;
   private String shape;
 
-  Medicine(String code, String name, double stocks, double priceIN, double coeff, String color, String shape) {
+  public Medicine(String code, String name, double stocks, double priceIN, double coeff, String color, String shape) {
     this.code = code;
     this.name = name;
     this.stocks = stocks;
@@ -87,7 +87,7 @@ public class Medicine {
     String stocks = String.valueOf(this.stocks);
     String priceIN = String.valueOf(this.priceIN);
     String coeff = String.valueOf(this.coeff);
-    String info[] = { code, name, stocks, priceIN, coeff, color, shape, };
+    String[] info = { code, name, stocks, priceIN, coeff, color, shape, };
     return info;
   }
 
@@ -97,8 +97,13 @@ public class Medicine {
 
   public int check(Medicine a) {
     if (this.code.equals(a.code)) {
-      if (this.name.equals(a.name) && this.coeff == a.coeff && this.color.equals(a.color) && this.priceIN == a.priceIN
-          && this.shape.equals(a.shape) && this.stocks == a.stocks) {
+      if (
+              this.name.equals(a.name)
+            && this.coeff == a.coeff
+            && this.color.equals(a.color)
+            && this.priceIN == a.priceIN
+            && this.shape.equals(a.shape)
+            && this.stocks == a.stocks) {
         return 1;
       } else
         return 0;

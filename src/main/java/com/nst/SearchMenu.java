@@ -5,6 +5,8 @@
  */
 package com.nst;
 
+import com.nst.Medicine.Medicine;
+
 import java.awt.Color;
 import java.awt.ScrollPane;
 import java.util.List;
@@ -28,12 +30,12 @@ public class SearchMenu extends javax.swing.JFrame {
     private void Table_Display()
     {
         model = (DefaultTableModel) jTable2.getModel();
-        List<thuoc> MedicineList1 = thuocHelper.danhsach(ExcelHelper.thuocData);         //gọi hàm lấy danh sách tất cả các thuốc trả về list thuốc
+        List<Medicine> MedicineList1 = thuocHelper.danhsach(ExcelHelper.thuocData);         //gọi hàm lấy danh sách tất cả các thuốc trả về list thuốc
         int n=MedicineList1.size();
         for(int i=0;i<n;i++)
         {
-           
-            thuoc temp=MedicineList1.get(i);            
+
+            Medicine temp=MedicineList1.get(i);
             String id= temp.getCode();
             String name=temp.getName();
             double stock=temp.getStocks();
@@ -45,7 +47,7 @@ public class SearchMenu extends javax.swing.JFrame {
             id,name,stock,pricein,priceout,shape,color
         });
         }
-        
+
    // JScrollPane sp = new JScrollPane(jTable1);
       jTable2.setBackground(Color.yellow);
     }
@@ -176,7 +178,7 @@ public class SearchMenu extends javax.swing.JFrame {
 
         String SearchingResult = SearchingTextField.getText();
         SearchResult result= new SearchResult(SearchingResult);
-        result.setVisible(true);        
+        result.setVisible(true);
     }//GEN-LAST:event_OkSearchingButtonActionPerformed
 
     private void StatisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatisticButtonActionPerformed
