@@ -21,6 +21,16 @@ public class Medicine {
     this.color = color;
     this.shape = shape;
   }
+  
+  Medicine(Medicine a){
+    this.code = a.code;
+    this.name = a.name;
+    this.stocks = a.stocks;
+    this.priceIN = a.priceIN;
+    this.coeff = a.coeff;
+    this.color = a.color;
+    this.shape = a.shape;
+  }
 
   public void setCode(String code) {
     this.code = code;
