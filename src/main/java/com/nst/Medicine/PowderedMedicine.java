@@ -3,9 +3,8 @@ package com.nst.Medicine;
 public class PowderedMedicine extends Medicine {
 
     private double mg;
-    PowderedMedicine(String code, String name, int stocks, double priceIN, double coeff, String color, String shape,double mg) { 
+    public PowderedMedicine(String code, String name, double stocks, double priceIN, double coeff, String color, String shape) {
       super(code, name, stocks, priceIN, coeff, color, shape);
-      this.mg=mg;
     }
 
     public void setMg(double mg) {
@@ -17,7 +16,6 @@ public class PowderedMedicine extends Medicine {
     }
   
     public double priceOUT(double priceIN, double coeff, double mg){
-      double priceOUT = mg * priceIN * coeff;
-      return priceOUT;
+        return mg * priceIN * coeff;
     }
   }

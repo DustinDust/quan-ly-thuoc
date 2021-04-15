@@ -1,12 +1,11 @@
 package com.nst;
 
-import org.apache.commons.io.FileUtils;
+import com.nst.Medicine.Medicine;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -14,13 +13,13 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class thuocHelper {
+public class MedicineHelper {
 
-    private static DateTimeFormatter  dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH.mm.ss");
+    private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH.mm.ss");
 
-    public static List<thuoc> timkiem(String name, HashMap<String, thuoc> data)
+    public static List<Medicine> timkiem(String name, HashMap<String, Medicine> data)
     {
-        List<thuoc> ToReturn = new ArrayList<>();
+        List<Medicine> ToReturn = new ArrayList<>();
         for (String i : data.keySet())
         {
             if(i.toLowerCase().contains(name.toLowerCase()))
@@ -28,7 +27,7 @@ public class thuocHelper {
                 ToReturn.add(data.get(i));
             }
         }
-        for(thuoc i : data.values())
+        for(Medicine i : data.values())
         {
             if(i.getName().toLowerCase().contains(name.toLowerCase())
                 && !ToReturn.contains(i))
@@ -38,9 +37,9 @@ public class thuocHelper {
         }
         return ToReturn;
     }
-    public static List<thuoc> danhsach(HashMap<String, thuoc> data)
+    public static List<Medicine> MedList(HashMap<String, Medicine> data)
     {
-        List<thuoc> ToReturn = new ArrayList<>();
+        List<Medicine> ToReturn = new ArrayList<>();
         for(String i : data.keySet())
         {
             ToReturn.add(data.get(i));
@@ -54,25 +53,28 @@ public class thuocHelper {
         return null;      
     }
 
-    public static void NhapThuoc(thuoc thuocObject, double amount, HashMap<String, thuoc> data)
+    public static void ImportMed(Medicine thuocObject, double amount, HashMap<String, Medicine> data)
     {
         if(data.containsKey(thuocObject.getCode()))
         {
-            thuoc ethuoc = data.get(thuocObject.getCode());
-            ethuoc.setStocks(ethuoc.getStocks() + amount);
+            Medicine ethuoc = data.get(thuocObject.getCode());
+            ethuoc.addStocks(amount);
         }
-        else data.put(thuocObject.getCode(), thuocObject);
+        else {
+            thuocObject.addStocks(amount);
+            data.put(thuocObject.getCode(), thuocObject);
+        }
     }
 
-    public static void BanThuoc(String key, double amount, HashMap<String, thuoc> data) throws Exception
+    public static void ExportMed(String key, double amount, HashMap<String, Medicine> data) throws Exception
     {
         if(data.containsKey(key))
         {
 
             try
             {
-                NhapThuoc(data.get(key), -amount, data);
-                XuatHoaDon(data.get(key), amount);
+                ImportMed(data.get(key), -amount, data);
+                BillsOut(data.get(key), amount);
             }
             catch (IOException e)
             {
@@ -84,7 +86,7 @@ public class thuocHelper {
 
     }
 
-    public static void XuatHoaDon(thuoc obj, double amount) throws IOException
+    public static void BillsOut(Medicine obj, double amount) throws IOException
     {
         Path billPath;
         LocalDateTime now = LocalDateTime.now();
