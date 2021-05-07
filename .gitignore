@@ -2,3 +2,4 @@
 pharmacyManagement/
 *.class
 *.class
+/target/
