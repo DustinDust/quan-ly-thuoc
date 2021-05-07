@@ -1,5 +1,7 @@
 package com.nst.helper;
 
+//Enum dùng để kiểm tra kiểu thuốc từ file data (excel)
+
 public enum MedicineType {;
 
     public static final int TYPE_VIEN = 0;

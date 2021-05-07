@@ -1,5 +1,6 @@
 package com.nst.helper;
 
+//Các hàm hỗ trợ thao tác với file excel vô đây
 
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
@@ -19,9 +20,13 @@ import java.util.List;
 
 
 public class ExcelHelper {
+    //main data
     public static HashMap<String, Medicine> MedData = new HashMap<>();
-    private static HashMap<String, Medicine> OldMedData = new HashMap<>();//old data from load, used to compare when update
+    //old data from load, used to compare when update
+    private static HashMap<String, Medicine> OldMedData = new HashMap<>();
+    //Path của file excel
     private final Path ExcelPath;
+    //Workbook của excel;
     private final XSSFWorkbook ExcelWorkBook;
 
     public ExcelHelper(String excelPath) throws IOException {
@@ -30,10 +35,12 @@ public class ExcelHelper {
         ExcelWorkBook = new XSSFWorkbook(inputStream);
     }
 
+    //Đọc dữ liệu trong excel vào data
     public HashMap<String, Medicine> Read() {
         XSSFSheet ExcelSheetData = ExcelWorkBook.getSheetAt(0);
         int lastRowNum = ExcelSheetData.getLastRowNum();
         for (int i = 0; i <= lastRowNum; i++) {
+            //đưa khối try catch vào trong vòng for để bỏ qua các dòng trong excel bị lỗi;
             try {
                 Medicine random;
                 XSSFRow currentRow = ExcelSheetData.getRow(i);
@@ -83,6 +90,7 @@ public class ExcelHelper {
         return MedData;
     }
 
+    //update file excel;
     public void Update() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(ExcelPath.toFile());
         List<Medicine> medicineList = MedicineHelper.MedList(ExcelHelper.MedData);
@@ -142,7 +150,5 @@ public class ExcelHelper {
         CreatedRow.getCell(7).setCellValue(newMed.getShape());
         ExcelWorkBook.write(outputStream);
     }
-
-    //inner Enum chua cac loai thuoc tuong ung voi gia tri int
 
 }

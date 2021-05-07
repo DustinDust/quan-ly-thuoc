@@ -23,16 +23,21 @@ public class MedicineHelper {
 
     private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy [HH-mm-ss]");
 
+
+    //tìm danh sách các loại thuốc có chưa String key (trong mã hoặc trong tên)
     public static List<Medicine> MedSearch(String name, HashMap<String, Medicine> data)
     {
         List<Medicine> ToReturn = new ArrayList<>();
         for (String i : data.keySet())
         {
+            //search Mã thuốc trước, nếu có trùng thì adđ vô danh sách tìm được
             if(i.toLowerCase().contains(name.toLowerCase()))
             {
+
                 ToReturn.add(data.get(i));
             }
         }
+        //search tên thuốc sau
         for(Medicine i : data.values())
         {
             if(i.getName().toLowerCase().contains(name.toLowerCase())
@@ -44,7 +49,7 @@ public class MedicineHelper {
         return ToReturn;
     }
 
-
+    //chuyển hóa thuốc trong data -> danh sách list, dùng cho hiển thị trong GUI
     public static List<Medicine> MedList(HashMap<String, Medicine> data)
     {
         List<Medicine> ToReturn = new ArrayList<>();
@@ -56,7 +61,7 @@ public class MedicineHelper {
 
     }
 
-
+    //thống kê lượng thuốc đã bán dựa trên hóa đơn
     public static Object[][] Statistic(Date begin,Date end) throws NullPointerException, ParseException //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
     {
         //Path of the bill list, for reading only
@@ -70,12 +75,12 @@ public class MedicineHelper {
         {
             String DateInString = bill.getName().substring(0, bill.getName().indexOf(' '));
             Date BillDate = new SimpleDateFormat("dd-MM-yyyy").parse(DateInString);
+            //nằm trong khoảng ngày tháng chuẩn mới nhận
             if(BillDate.compareTo(begin) >= 0 && BillDate.compareTo(end) <= 0)
             {
                 BillPaths.add(Paths.get(bill.getAbsolutePath()));
             }
         }
-
 
         //the returned Array, which contains one Object and one Amount buy in String (or Double, idk yet)
         Object[][] Infos = new Object[2][BillPaths.size()];
@@ -109,12 +114,15 @@ public class MedicineHelper {
                 e.printStackTrace();
             }
         }
+        //Infos[0][i] sẽ chứa object thuốc đã bán được (tạm thời và có thể ko tồn tại trong database)
+        //Infos[1][i] sẽ chứa lượng thuốc đã bán (String, not Double)
         return Infos;
 
-        //parse exception nghĩa là sai ngày nhập vào
-        //NullPointer Exception nghĩa là chưa có data về bill/ lỗi thư mục bill;
+        //parse exception nghĩa là ngày tháng trong tên của file bill bị sai, cái này có thể ko cần xử lý
+        //NullPointer Exception nghĩa là chưa có data về bill/ lỗi thư mục bill, nên xử lý;
     }
 
+    //nhập thuốc, basically là update stocks;
     public static void ImportMed(Medicine thuocObject, double amount, HashMap<String, Medicine> data)
     {
         if(data.containsKey(thuocObject.getCode()))
@@ -130,6 +138,7 @@ public class MedicineHelper {
         }
     }
 
+    //xuất thuốc, basically update stocks với kiểm tra điều kiện âm và có báo lỗi
     public static void ExportMed(String key, double amount, HashMap<String, Medicine> data) throws IOException
     {
         if(data.get(key).getStocks() >= amount)
@@ -150,6 +159,7 @@ public class MedicineHelper {
 
     }
 
+    //chỉnh sửa thông tin của thuốc
     public static void Edit(String oldKey, HashMap<String, Medicine> Data, String key, String name, double coeff, double priceIn, String color, String shape) throws IOException
     {
         if(Data.containsKey(oldKey))
