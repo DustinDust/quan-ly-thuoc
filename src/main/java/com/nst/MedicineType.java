@@ -1,4 +1,4 @@
-package com.nst.helper;
+package com.nst;
 
 //Enum dùng để kiểm tra kiểu thuốc từ file data (excel)
 

@@ -2,7 +2,7 @@ package com.nst.GUI;
 
 
 import com.nst.Medicine.Medicine;
-import com.nst.helper.MedicineHelper;
+import com.nst.MedicineHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

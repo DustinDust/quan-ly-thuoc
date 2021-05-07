@@ -1,4 +1,4 @@
-package com.nst.helper;
+package com.nst;
 
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
