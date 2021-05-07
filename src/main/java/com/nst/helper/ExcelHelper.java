@@ -1,4 +1,4 @@
-package com.nst;
+package com.nst.helper;
 
 
 import com.nst.Medicine.LiquidMedicine;
@@ -19,10 +19,11 @@ import java.util.List;
 
 
 public class ExcelHelper {
-    private static HashMap<String, Medicine> OldMedData = new HashMap<>();//old data from load, used to compare when update
     public static HashMap<String, Medicine> MedData = new HashMap<>();
+    private static HashMap<String, Medicine> OldMedData = new HashMap<>();//old data from load, used to compare when update
     private final Path ExcelPath;
     private final XSSFWorkbook ExcelWorkBook;
+
     public ExcelHelper(String excelPath) throws IOException {
         ExcelPath = Paths.get(excelPath).toRealPath();
         FileInputStream inputStream = new FileInputStream(ExcelPath.toFile());
@@ -38,7 +39,7 @@ public class ExcelHelper {
                 XSSFRow currentRow = ExcelSheetData.getRow(i);
                 double dataType = currentRow.getCell(0).getNumericCellValue();
                 switch ((int) dataType) {
-                    case MedType.TYPE_VIEN: {
+                    case MedicineType.TYPE_VIEN: {
                         random = new Tablets(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
@@ -48,7 +49,7 @@ public class ExcelHelper {
                                 currentRow.getCell(7).getStringCellValue());
                         break;
                     }
-                    case MedType.TYPE_NUOC: {
+                    case MedicineType.TYPE_NUOC: {
                         random = new LiquidMedicine(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
@@ -58,7 +59,7 @@ public class ExcelHelper {
                                 currentRow.getCell(7).getStringCellValue());
                         break;
                     }
-                    case MedType.TYPE_BOT: {
+                    case MedicineType.TYPE_BOT: {
                         random = new PowderedMedicine(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
@@ -85,42 +86,63 @@ public class ExcelHelper {
     public void Update() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(ExcelPath.toFile());
         List<Medicine> medicineList = MedicineHelper.MedList(ExcelHelper.MedData);
-        for(Medicine med : medicineList)
-        {
-            if(OldMedData.containsKey(med.getCode()))
-            {
+        XSSFSheet DataSheet = ExcelWorkBook.getSheetAt(0);
+        int RowNum = DataSheet.getLastRowNum();
+        for (Medicine med : medicineList) {
+            if (OldMedData.containsKey(med.getCode())) {
                 //check Medicine object
                 Medicine currentMed = OldMedData.get(med.getCode());
-                if(currentMed.check(med) < 0)
-                {
+                if (currentMed.check(med) < 0) {
                     //if somehow we end up here, might as well add it to Excel Data
-                    createNewMedInData(med);
+                    createNewMedInData(med, outputStream, RowNum + 1);
+                } else if (currentMed.check(med) == 0) {
+                    //update that exact medicine data in excel files
+                    for (int i = 0; i < RowNum; i++) {
+                        XSSFRow currentRow = DataSheet.getRow(i);
+                        String key = currentRow.getCell(1).getStringCellValue();   //code is always with
+                        if (med.getCode().equals(key)) {
+                            createNewMedInData(med, outputStream, i+1);
+                        }
+                        ExcelWorkBook.write(outputStream);
+                    }
                 }
-                else if(currentMed.check(med) == 0)
-                {
-                    //update that exact nedicine data in excel files
-                }
-                else;
-            }
-            else
-            {
+            } else {
                 //create new data in excel file
-                createNewMedInData(med);
+                createNewMedInData(med, outputStream, RowNum + 1);
             }
         }
-
+        outputStream.flush();
+        outputStream.close();
     }
 
-    private void createNewMedInData(Medicine newMed)
-    {
+    private void createNewMedInData(Medicine newMed, FileOutputStream outputStream, int row) throws IOException {
+        XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
+        XSSFRow CreatedRow = dataSheet.createRow(row);
+        for (int i = 0; i < 8; i++) {
+            CreatedRow.createCell(i);
+        }
 
+        int type = -1;
+        if (newMed.getClass().toString().equals("class com.nst.Medicine.Tablet")) {
+            type = MedicineType.TYPE_VIEN;
+        }
+        if (newMed.getClass().toString().equals("class com.nst.Medicine.LiquidMedicine")) {
+            type = MedicineType.TYPE_NUOC;
+        }
+        if (newMed.getClass().toString().equals("class com.nst.Medicine.PowderedMedicine")) {
+            type = MedicineType.TYPE_BOT;
+        }
+        CreatedRow.getCell(0).setCellValue((double) type);
+        CreatedRow.getCell(1).setCellValue(newMed.getCode());
+        CreatedRow.getCell(2).setCellValue(newMed.getName());
+        CreatedRow.getCell(3).setCellValue(newMed.getCoeff());
+        CreatedRow.getCell(4).setCellValue(newMed.getPriceIn());
+        CreatedRow.getCell(5).setCellValue(newMed.getStocks());
+        CreatedRow.getCell(6).setCellValue(newMed.getColor());
+        CreatedRow.getCell(7).setCellValue(newMed.getShape());
+        ExcelWorkBook.write(outputStream);
     }
 
     //inner Enum chua cac loai thuoc tuong ung voi gia tri int
-    private enum MedType {
-        ;
-        public static final int TYPE_VIEN = 0;
-        public static final int TYPE_NUOC = 1;
-        public static final int TYPE_BOT = 2;
-    }
+
 }

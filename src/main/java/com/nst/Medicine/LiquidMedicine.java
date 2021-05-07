@@ -3,9 +3,9 @@ package com.nst.Medicine;
 public class LiquidMedicine extends Medicine {
 
     private double ml;
-    LiquidMedicine(String code, String name, int stocks, double priceIN, double coeff, String color, String shape, int numberOut,double ml) { 
+    public LiquidMedicine(String code, String name, double stocks, double priceIN, double coeff, String color, String shape) {
       super(code, name, stocks, priceIN, coeff, color, shape);
-      this.ml=ml;
+      //this.ml=ml;
     }  
     public void setMg(double ml) {
       this.ml = ml;

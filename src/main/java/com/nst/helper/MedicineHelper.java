@@ -1,0 +1,193 @@
+package com.nst.helper;
+
+import com.nst.Medicine.LiquidMedicine;
+import com.nst.Medicine.Medicine;
+import com.nst.Medicine.PowderedMedicine;
+import com.nst.Medicine.Tablets;
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MedicineHelper {
+
+    private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy [HH-mm-ss]");
+
+    public static List<Medicine> MedSearch(String name, HashMap<String, Medicine> data)
+    {
+        List<Medicine> ToReturn = new ArrayList<>();
+        for (String i : data.keySet())
+        {
+            if(i.toLowerCase().contains(name.toLowerCase()))
+            {
+                ToReturn.add(data.get(i));
+            }
+        }
+        for(Medicine i : data.values())
+        {
+            if(i.getName().toLowerCase().contains(name.toLowerCase())
+                && !ToReturn.contains(i))
+            {
+                ToReturn.add(i);
+            }
+        }
+        return ToReturn;
+    }
+
+
+    public static List<Medicine> MedList(HashMap<String, Medicine> data)
+    {
+        List<Medicine> ToReturn = new ArrayList<>();
+        for(String i : data.keySet())
+        {
+            ToReturn.add(data.get(i));
+        }
+        return ToReturn;
+
+    }
+
+
+    public static Object[][] Statistic(Date begin,Date end) throws NullPointerException, ParseException //hàm đưa vào 2 khoảng thời gian lấy ra tất cả thuốc đã bán trong khoảng đó kèm theo số lượng bán
+    {
+        //Path of the bill list, for reading only
+        List<Path> BillPaths = new ArrayList<>();
+        Path BillsFolder = Paths.get("bills").toAbsolutePath();
+
+        //is used for iteration
+        File[] BillList = BillsFolder.toFile().listFiles();
+
+        for(File bill : BillList)
+        {
+            String DateInString = bill.getName().substring(0, bill.getName().indexOf(' '));
+            Date BillDate = new SimpleDateFormat("dd-MM-yyyy").parse(DateInString);
+            if(BillDate.compareTo(begin) >= 0 && BillDate.compareTo(end) <= 0)
+            {
+                BillPaths.add(Paths.get(bill.getAbsolutePath()));
+            }
+        }
+
+
+        //the returned Array, which contains one Object and one Amount buy in String (or Double, idk yet)
+        Object[][] Infos = new Object[2][BillPaths.size()];
+        for(int i = 0; i < BillPaths.size(); i++)
+        {
+            try (BufferedReader reader = new BufferedReader(new FileReader(BillPaths.get(i).toFile()))) //try (with resources) 'n catch
+            {
+                String MedType = reader.readLine();
+                String code = reader.readLine();
+                String name = reader.readLine();
+                double coeff = Double.parseDouble(reader.readLine());
+                double priceIn = Double.parseDouble(reader.readLine());
+                Medicine foundMed = null;
+                if(MedType.equals(LiquidMedicine.class.toString())) {
+                    foundMed = new LiquidMedicine(code, name, 0, priceIn, coeff, null, null);
+                }
+                if(MedType.equals(Tablets.class.toString()))
+                {
+                    foundMed = new Tablets(code, name, 0, priceIn, coeff, null, null);
+                }
+                if(MedType.equals(PowderedMedicine.class.toString()))
+                {
+                    foundMed = new PowderedMedicine(code, name, 0, priceIn, coeff, null, null);
+                }
+
+                String amount = reader.readLine();
+                Infos[0][i] = foundMed;
+                Infos[1][i] = amount;
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return Infos;
+
+        //parse exception nghĩa là sai ngày nhập vào
+        //NullPointer Exception nghĩa là chưa có data về bill/ lỗi thư mục bill;
+    }
+
+    public static void ImportMed(Medicine thuocObject, double amount, HashMap<String, Medicine> data)
+    {
+        if(data.containsKey(thuocObject.getCode()))
+        {
+
+            Medicine MedicineToUpdate = data.get(thuocObject.getCode());
+            MedicineToUpdate.addStocks(amount);
+            data.put(MedicineToUpdate.getCode(), MedicineToUpdate);
+        }
+        else {
+            thuocObject.addStocks(amount);
+            data.put(thuocObject.getCode(), thuocObject);
+        }
+    }
+
+    public static void ExportMed(String key, double amount, HashMap<String, Medicine> data) throws IOException
+    {
+        if(data.get(key).getStocks() >= amount)
+        {
+
+            try
+            {
+                ImportMed(data.get(key), -amount, data);
+                BillsOut(data.get(key), amount);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+        else throw new IOException("Numbers are too large");
+
+    }
+
+    public static void Edit(String oldKey, HashMap<String, Medicine> Data, String key, String name, double coeff, double priceIn, String color, String shape) throws IOException
+    {
+        if(Data.containsKey(oldKey))
+        {
+            Medicine newMed = Data.get(oldKey);
+            newMed.setCode(key);
+            newMed.setName(name);
+            newMed.setCoeff(coeff);
+            newMed.setPriceIn(priceIn);
+            newMed.setColor(color);
+            newMed.setShape(shape);
+            Data.remove(oldKey);
+            Data.put(newMed.getCode(), newMed);
+        }
+        else throw new IOException("No Medicine Found!");
+    }
+
+    public static void BillsOut(Medicine obj, double amount) throws IOException
+    {
+        Path billPath;
+        LocalDateTime now = LocalDateTime.now();
+        String billFileName = dtf.format(now) + " - " + obj.getCode();
+        billPath = Paths.get("bills/" + billFileName + ".tdt").toAbsolutePath();
+        Files.createFile(billPath);
+        FileWriter writer = new FileWriter(billPath.toFile());
+        BufferedWriter output = new BufferedWriter(writer);
+        output.write(obj.getClass().toString());
+        output.newLine();
+        output.write(obj.getCode());
+        output.newLine();
+        output.write(obj.getName());
+        output.newLine();
+        output.write(Double.toString(obj.getCoeff()));
+        output.newLine();
+        output.write(Double.toString(obj.getPriceIn()));
+        output.newLine();
+        output.write(Double.toString(amount));
+        output.close();
+        writer.close();
+    }
+}

@@ -6,9 +6,11 @@
 package com.nst;
 
 import com.nst.Medicine.Medicine;
+import com.nst.helper.MedicineHelper;
 
-import java.io.IOException;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -16,29 +18,56 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-
-        try {
-            ExcelHelper loaded = new ExcelHelper("data.xlsx");
-            loaded.Read();
-            List<Medicine> medicineList = MedicineHelper.MedList(ExcelHelper.MedData);
-            for(Medicine med : medicineList)
-            {
-                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
-            }
-            List<Medicine> medicineList2 = MedicineHelper.timkiem("Ab", ExcelHelper.MedData);
-            for(Medicine med : medicineList2)
-            {
-                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
-            }
-            MedicineHelper.ImportMed(new Medicine("CC", "Ro", 0, 122, 1.2, "B", "C"), 151,ExcelHelper.MedData);
-            List<Medicine> medicineList3 = MedicineHelper.MedList(ExcelHelper.MedData);
-            for(Medicine med : medicineList3)
-            {
-                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ExcelHelper loaded = new ExcelHelper("data.xlsx");
+//            loaded.Read();
+//            List<Medicine> meds = MedicineHelper.MedList(ExcelHelper.MedData);
+//            for(Medicine med: meds)
+//            {
+//                for(String str: med.info())
+//                {
+//                    System.out.print(str + " ");
+//                }
+//                System.out.println();
+//            }
+//            Medicine lol = new LiquidMedicine("Rx", "Ma tuy", 150, 25, 1.2, "Green", "Round");
+//            MedicineHelper.ImportMed(lol, 15, ExcelHelper.MedData);
+//            Medicine arose = ExcelHelper.MedData.get("Ab");
+//            MedicineHelper.ImportMed(arose, 20, ExcelHelper.MedData);
+//            List<Medicine> med2s = MedicineHelper.MedList(ExcelHelper.MedData);
+//            for(Medicine med: med2s)
+//            {
+//                for(String str: med.info())
+//                {
+//                    System.out.print(str + " ");
+//                }
+//                System.out.println();
+//            }
+//            MedicineHelper.ExportMed("Rx", 15, ExcelHelper.MedData);
+//            List<Medicine> med3s = MedicineHelper.MedList(ExcelHelper.MedData);
+//            for(Medicine med: med3s)
+//            {
+//                for(String str: med.info())
+//                {
+//                    System.out.print(str + " ");
+//                }
+//                System.out.println();
+//            }
+//
+//            MedicineHelper.Edit("Rx", ExcelHelper.MedData, "Xr", "Matuys", 1.1, 15, "red", "appled");
+//            List<Medicine> med4s = MedicineHelper.MedList(ExcelHelper.MedData);
+//            for(Medicine med: med4s)
+//            {
+//                for(String str: med.info())
+//                {
+//                    System.out.print(str + " ");
+//                }
+//                System.out.println();
+//            }
+            //loaded.Update();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
 //        java.awt.EventQueue.invokeLater(new Runnable() {
@@ -46,5 +75,23 @@ public class Main {
 //                new MainMenu().setVisible(true);
 //            }
 //        });
+
+
+        //Test cái method statistic :V. Nhìn vào đây mà sử dụng;
+        try {
+            Date beg = new SimpleDateFormat("dd-MM-yyyy").parse("06-05-2021");
+            Date end = new SimpleDateFormat("dd-MM-yyyy").parse("08-05-2021");
+            Object[][] data = MedicineHelper.Statistic(beg, end);
+            for(int i = 0; i < data[0].length; i++)
+            {
+                System.out.print(((Medicine)data[0][i]).getCode() + " - ");
+                System.out.println((String)data[1][i]);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
