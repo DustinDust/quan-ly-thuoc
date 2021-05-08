@@ -32,11 +32,11 @@ public class Main {
                 System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
             }
             MedicineHelper.ImportMed(new Medicine("CC", "Ro", 0, 122, 1.2, "B", "C"), 151,ExcelHelper.MedData);
-            List<Medicine> medicineList3 = MedicineHelper.MedList(ExcelHelper.MedData);
-            for(Medicine med : medicineList3)
-            {
-                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
-            }
+//            List<Medicine> medicineList3 = MedicineHelper.MedList(ExcelHelper.MedData);
+//            for(Medicine med : medicineList3)
+//            {
+//                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }

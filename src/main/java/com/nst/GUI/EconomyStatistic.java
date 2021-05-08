@@ -41,8 +41,6 @@ public class EconomyStatistic extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         OkStatisticButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         BeginDay = new javax.swing.JComboBox<>();
@@ -76,24 +74,11 @@ public class EconomyStatistic extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã thuốc", "Tên thuốc", "Giá nhập", "Giá bán", "Số lượng bán", "Lãi"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-        }
-
         jLabel4.setText("Ngày kết thúc kết toán");
 
         jLabel2.setText("Ngày");
 
-        BeginDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", " " }));
+        BeginDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         BeginDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BeginDayActionPerformed(evt);
@@ -110,7 +95,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
 
         jLabel7.setText("Ngày");
 
-        EndDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", " " }));
+        EndDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         EndDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EndDayActionPerformed(evt);
@@ -193,7 +178,6 @@ public class EconomyStatistic extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BackToHome)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,9 +185,9 @@ public class EconomyStatistic extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BackToSearchMenuButton)
                     .addComponent(BackToHome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,8 +206,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
                     .addComponent(EndMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,43 +275,36 @@ public class EconomyStatistic extends javax.swing.JFrame {
             boolean check2= TimeChecker1(Integer.parseInt(endDay),Integer.parseInt(endMonth),Integer.parseInt(endYear));
             boolean check3= TimeChecker2(Integer.parseInt(beginDay), Integer.parseInt(beginMonth), Integer.parseInt(beginYear)
                     , Integer.parseInt(endDay), Integer.parseInt(endMonth), Integer.parseInt(endYear));
-            if(check1 ==false || check2==false || check3==false)
+            if(check1 == false || check2 == false || check3 == false)
             {
-                new Notification(1).setVisible(true);
+                new DateFormatNotification().setVisible(true);
+                return;
             }
             
             Date beginTime = new SimpleDateFormat("dd-MM-yyyy").parse(beginDay+"-"+beginMonth+"-"+beginYear);
             Date endTime = new SimpleDateFormat("dd-MM-yyyy").parse(endDay+"-"+endMonth+"-"+endYear);
             Object[][] listOfMedicine = MedicineHelper.Statistic(beginTime,endTime);      // gọi hàm Statistic thống kê trong một khoảng thời gian
-            DefaultTableModel Model = new DefaultTableModel()
-            {
-                @Override
-                public boolean isCellEditable(int row,int column)
-                {
-                    return false;
-                }
-            };
-            jTable1.setModel(Model);
-            Model=(DefaultTableModel)jTable1.getModel();
-            int n= listOfMedicine.length;
+            int n= listOfMedicine[0].length;
             double Sum=0;
+            String id[] = new String[100];
+            String name[]= new String[100];
+            double[] pricein= new double[100];
+            double[] priceout= new double[100];
+            double[] numberOut= new double[100];
+            double[] profit= new double[100];
+            int count = 0;
             for(int i=0;i<n;i++)
             {
-                Medicine Medicine = (Medicine) listOfMedicine[0][i];
-                String id= Medicine.getCode();
-                String name= Medicine.getName();
-                double pricein= Medicine.getPriceIn();
-                double priceout= Medicine.getPriceIn()*Medicine.getCoeff();
-                double numberOut= Integer.parseInt(listOfMedicine[1][i].toString());
-                double profit= Medicine.getCoeff()*numberOut;
-//                Sum+=profit;
-                Model.addRow(new Object[]
-                {
-                    id,name,pricein,priceout,numberOut,profit
-                }
-                );
+                Medicine medicine = (Medicine) listOfMedicine[0][i];
+                id[i]= medicine.getCode();
+                name[i]= medicine.getName();
+                pricein[i]= medicine.getPriceIn();
+                priceout[i]= medicine.getPriceIn()*medicine.getCoeff();
+                numberOut[i]= Double.parseDouble((String) listOfMedicine[1][i]);
+                profit[i]= medicine.getCoeff()*numberOut[i];
+                count++;
             }
-//            SumLabel.setText("Tổng doanh thu: "+String.valueOf(Sum));
+        new TableStatistic(count,id,name,pricein,priceout,numberOut,profit).setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(EconomyStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -355,37 +331,6 @@ public class EconomyStatistic extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EconomyStatistic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EconomyStatistic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EconomyStatistic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EconomyStatistic.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EconomyStatistic().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackToHome;
@@ -406,7 +351,5 @@ public class EconomyStatistic extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,10 @@ import com.nst.MedicineHelper;
 
 import java.awt.Color;
 import java.awt.ScrollPane;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import static javax.swing.SwingUtilities.isRightMouseButton;
@@ -212,7 +215,7 @@ public class SearchMenu extends javax.swing.JFrame {
     private void BuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyActionPerformed
         if(MainMenu.role)              //neu la nguoi quan ly thi khoa chuc nang mua hang
         {
-            new Notification(2).setVisible(true);
+            new NoPermissionNot().setVisible(true);
         }
         else
         {
@@ -224,11 +227,15 @@ public class SearchMenu extends javax.swing.JFrame {
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
         {
-            new Notification(2).setVisible(true);
+            new NoPermissionNot().setVisible(true);
         }
         else
         {
-            new EditInformation(currentList.get(List.getSelectedIndex())).setVisible(true);
+            try {
+                new EditInformation(currentList.get(List.getSelectedIndex())).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(SearchMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_EditActionPerformed
 

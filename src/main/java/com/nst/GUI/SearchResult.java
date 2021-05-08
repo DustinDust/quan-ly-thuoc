@@ -8,8 +8,11 @@ package com.nst.GUI;
 import com.nst.ExcelHelper;
 import com.nst.Medicine.Medicine;
 import com.nst.MedicineHelper;
+import java.io.IOException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import static javax.swing.SwingUtilities.isRightMouseButton;
@@ -134,11 +137,15 @@ public class SearchResult extends javax.swing.JFrame {
         getCurrentMedicine();
         if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
         {
-            new Notification(2).setVisible(true);
+            new NoPermissionNot().setVisible(true);
         }
         else
         {
-            new EditInformation(currentMedicine).setVisible(true);
+            try {
+                new EditInformation(currentMedicine).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(SearchResult.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_EditActionPerformed
 

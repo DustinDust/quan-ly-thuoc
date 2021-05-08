@@ -5,8 +5,13 @@
  */
 package com.nst.GUI;
 
+import com.nst.*;
 import com.nst.Medicine.Medicine;
-
+import static com.nst.MedicineHelper.Edit;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author admin
@@ -16,10 +21,11 @@ public class EditInformation extends javax.swing.JFrame {
     /**
      * Creates new form EditInformation
      */
-    public EditInformation(Medicine medicine) {
+    public EditInformation(Medicine medicine) throws IOException {
         initComponents();
         SetLabel(medicine);
         setLocationRelativeTo(null);
+        currentMedicine=medicine;
     }
 
     /**
@@ -77,6 +83,11 @@ public class EditInformation extends javax.swing.JFrame {
         jLabel4.setText("EDIT INFORMATION");
 
         OK.setText("OK");
+        OK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +139,7 @@ public class EditInformation extends javax.swing.JFrame {
                     .addComponent(NewNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(NewCoeffText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CoeffLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,6 +161,22 @@ public class EditInformation extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
+        // TODO add your handling code here:
+        System.out.println("aaaaaaaa");
+        try {
+            Edit(currentMedicine.getCode(), ExcelHelper.MedData, NewCodeText.getText(), NewNameText.getText(), Double.parseDouble(NewCoeffText.getText()), Double.parseDouble(NewPriceInText.getText()), NewColorText.getText(), NewShapeText.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(EditInformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             List<Medicine> medicineList3 = MedicineHelper.MedList(ExcelHelper.MedData);
+            for(Medicine med : medicineList3)
+            {
+                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
+            }
+            new UpdateNotification().setVisible(true);
+    }//GEN-LAST:event_OKActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,15 +197,15 @@ public class EditInformation extends javax.swing.JFrame {
     private javax.swing.JLabel ShapeLabel;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
-
-    private void SetLabel(Medicine medicine) {
+    public static Medicine currentMedicine;
+    private void SetLabel(Medicine medicine) throws IOException {
         //lay noi dung thuoc cu
         NewCodeText.setText(medicine.getCode());
         NewNameText.setText(medicine.getName());
         NewPriceInText.setText(String.valueOf(medicine.getPriceIn()));
         NewCoeffText.setText(String.valueOf(medicine.getCoeff()));
         NewColorText.setText(medicine.getColor());
-        NewShapeText.setText(medicine.getShape());
+        NewShapeText.setText(medicine.getShape());     
         
-    }
+}
 }
