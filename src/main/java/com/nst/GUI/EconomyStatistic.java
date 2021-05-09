@@ -263,6 +263,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
         return check;
     }
     private void OkStatisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkStatisticButtonActionPerformed
+
         try {
             // TODO add your handling code here
             String beginDay= BeginDay.getSelectedItem().toString();
@@ -303,8 +304,9 @@ public class EconomyStatistic extends javax.swing.JFrame {
                 numberOut[i]= Double.parseDouble((String) listOfMedicine[1][i]);
                 profit[i]= medicine.getCoeff()*numberOut[i];
                 count++;
+                Sum+=profit[i];
             }
-        new TableStatistic(count,id,name,pricein,priceout,numberOut,profit).setVisible(true);
+        new TableStatistic(count,id,name,pricein,priceout,numberOut,profit,Sum).setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(EconomyStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }

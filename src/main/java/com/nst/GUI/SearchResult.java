@@ -72,6 +72,11 @@ public class SearchResult extends javax.swing.JFrame {
         RightMouseClickMenu.add(Properties);
 
         Buy.setText("Buy");
+        Buy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuyActionPerformed(evt);
+            }
+        });
         RightMouseClickMenu.add(Buy);
 
         Edit.setText("Edit");
@@ -83,11 +88,10 @@ public class SearchResult extends javax.swing.JFrame {
         RightMouseClickMenu.add(Edit);
 
         setMinimumSize(new java.awt.Dimension(650, 450));
-        setPreferredSize(new java.awt.Dimension(650, 450));
 
-        SearchNotification.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        SearchNotification.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         SearchNotification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SearchNotification.setText("Kết quả tìm kiếm");
+        SearchNotification.setText("Search Results");
         SearchNotification.setToolTipText("");
 
         SearchingList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -148,6 +152,17 @@ public class SearchResult extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_EditActionPerformed
+
+    private void BuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyActionPerformed
+        if(MainMenu.role)               //neu la nguoi quan ly thi khoa chuc nang mua hang
+        {
+            new NoPermissionNot().setVisible(true);
+        }
+        else
+        {
+            //to be continue
+        }
+    }//GEN-LAST:event_BuyActionPerformed
 
     /**
      * @param args the command line arguments

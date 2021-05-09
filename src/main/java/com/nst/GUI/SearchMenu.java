@@ -105,7 +105,7 @@ public class SearchMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tìm kiếm");
+        jLabel1.setText("Search");
 
         OkSearchingButton.setText("OK");
         OkSearchingButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,7 @@ public class SearchMenu extends javax.swing.JFrame {
         });
 
         StatisticButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        StatisticButton.setText("Thống kê doanh thu");
+        StatisticButton.setText("Revenue Statistic");
         StatisticButton.setActionCommand("");
         StatisticButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,6 +193,11 @@ public class SearchMenu extends javax.swing.JFrame {
 
     private void StatisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatisticButtonActionPerformed
         // TODO add your handling code here:
+                if(!MainMenu.role)
+        {
+            new NoPermissionNot().setVisible(true);
+            return;
+        }
         new EconomyStatistic().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_StatisticButtonActionPerformed
@@ -219,7 +224,9 @@ public class SearchMenu extends javax.swing.JFrame {
         }
         else
         {
-                   //to be continued
+            new NumberNotification().setVisible(true);
+            
+            
         }
  
     }//GEN-LAST:event_BuyActionPerformed
@@ -231,11 +238,7 @@ public class SearchMenu extends javax.swing.JFrame {
         }
         else
         {
-            try {
-                new EditInformation(currentList.get(List.getSelectedIndex())).setVisible(true);
-            } catch (IOException ex) {
-                Logger.getLogger(SearchMenu.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            new NumberNotification().setVisible(true);
         }
     }//GEN-LAST:event_EditActionPerformed
 
@@ -246,7 +249,7 @@ public class SearchMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem Buy;
     private javax.swing.JMenuItem Edit;
     private javax.swing.JButton HomeButton;
-    private javax.swing.JList<String> List;
+    public static javax.swing.JList<String> List;
     private javax.swing.JButton OkSearchingButton;
     private javax.swing.JMenuItem Properties;
     private javax.swing.JPopupMenu RightMouseClickedMenu;

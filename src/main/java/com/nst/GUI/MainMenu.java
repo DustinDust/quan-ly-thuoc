@@ -39,14 +39,14 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Chào mừng đến với hệ thống quản lý thuốc");
+        jLabel1.setText("Welcome to the Medicine Management system");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Lựa chọn vai trò sử dụng của bạn");
+        jLabel2.setText("Select your role of user");
 
         ManagerButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        ManagerButton.setText("Người quản lý");
+        ManagerButton.setText("Manager");
         ManagerButton.setBorder(null);
         ManagerButton.setMaximumSize(new java.awt.Dimension(161, 49));
         ManagerButton.setMinimumSize(new java.awt.Dimension(161, 49));
@@ -58,8 +58,13 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         CustomerButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        CustomerButton.setText("Người mua hàng");
+        CustomerButton.setText("Customer");
         CustomerButton.setBorder(null);
+        CustomerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +108,13 @@ public class MainMenu extends javax.swing.JFrame {
         this.setVisible(false);
         role = true;
     }//GEN-LAST:event_ManagerButtonActionPerformed
+
+    private void CustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerButtonActionPerformed
+        SearchMenu newSearchMenu = new SearchMenu();
+        newSearchMenu.setVisible(true);
+        this.setVisible(false);
+        role = false;
+    }//GEN-LAST:event_CustomerButtonActionPerformed
 
     /**
      * @param args the command line arguments
