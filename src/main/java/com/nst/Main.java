@@ -9,6 +9,7 @@ import com.nst.GUI.MainMenu;
 import com.nst.Medicine.Medicine;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -31,13 +32,14 @@ public class Main {
             {
                 System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
             }
-            MedicineHelper.ImportMed(new Medicine("CC", "Ro", 0, 122, 1.2, "B", "C"), 151,ExcelHelper.MedData);
-//            List<Medicine> medicineList3 = MedicineHelper.MedList(ExcelHelper.MedData);
-//            for(Medicine med : medicineList3)
-//            {
-//                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
-//            }
-        } catch (IOException e) {
+            Object[][] dataRetrieved = MedicineHelper.Statistic(new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2021"),
+                                    new SimpleDateFormat("dd-MM-yyyy").parse("01-06-2021"));
+            for(int i = 0; i < dataRetrieved[0].length; i++)
+            {
+                System.out.print(((Medicine)dataRetrieved[0][i]).getCode() + " " +((Medicine)dataRetrieved[0][i]).getName() + "-");
+                System.out.println((String) dataRetrieved[1][i] + " " + (String) dataRetrieved[2][i]);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         new MainMenu().setVisible(true);

@@ -83,7 +83,7 @@ public class MedicineHelper {
         }
 
         //the returned Array, which contains one Object and one Amount buy in String (or Double, idk yet)
-        Object[][] Infos = new Object[2][BillPaths.size()];
+        Object[][] Infos = new Object[3][BillPaths.size()];
         for(int i = 0; i < BillPaths.size(); i++)
         {
             try (BufferedReader reader = new BufferedReader(new FileReader(BillPaths.get(i).toFile()))) //try (with resources) 'n catch
@@ -105,10 +105,12 @@ public class MedicineHelper {
                 {
                     foundMed = new PowderedMedicine(code, name, 0, priceIn, coeff, null, null);
                 }
-
                 String amount = reader.readLine();
+                String BillName = BillPaths.get(i).getFileName().toString();
+                String BillTime = BillName.substring(0, BillName.indexOf(' '));
                 Infos[0][i] = foundMed;
                 Infos[1][i] = amount;
+                Infos[2][i] = BillTime;
             } catch (IOException e)
             {
                 e.printStackTrace();
