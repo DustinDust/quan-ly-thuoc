@@ -9,7 +9,7 @@ import com.nst.ExcelHelper;
 import static com.nst.GUI.SearchMenu.currentList;
 import com.nst.Medicine.Medicine;
 import com.nst.MedicineHelper;
-import java.util.List;
+import javax.swing.JList;
 
 /**
  *
@@ -20,9 +20,10 @@ public class NumberNotification extends javax.swing.JFrame {
     /**
      * Creates new form NumberNotification
      */
-    public NumberNotification() {
+    public NumberNotification(JList<String> list) {
         setLocationRelativeTo(null);
         initComponents();
+        this.list=list;
     }
 
     /**
@@ -82,7 +83,7 @@ public class NumberNotification extends javax.swing.JFrame {
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         number= Double.parseDouble(Number.getText());
         boolean check=true;
-        Medicine current = currentList.get(SearchMenu.List.getSelectedIndex());
+        Medicine current = currentList.get(list.getSelectedIndex());
             try {
                 MedicineHelper.ExportMed(current.getCode(), NumberNotification.number, ExcelHelper.MedData);
             } catch (Exception ex) {
@@ -104,4 +105,5 @@ public class NumberNotification extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     public static double number;
+    public static JList<String> list;
 }

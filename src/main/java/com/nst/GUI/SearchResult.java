@@ -154,13 +154,13 @@ public class SearchResult extends javax.swing.JFrame {
     }//GEN-LAST:event_EditActionPerformed
 
     private void BuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyActionPerformed
-        if(MainMenu.role)               //neu la nguoi quan ly thi khoa chuc nang mua hang
+        if(MainMenu.role)              //neu la nguoi quan ly thi khoa chuc nang mua hang
         {
             new NoPermissionNot().setVisible(true);
         }
         else
         {
-            //to be continue
+            new NumberNotification( SearchingList).setVisible(true);                    
         }
     }//GEN-LAST:event_BuyActionPerformed
 

@@ -224,9 +224,7 @@ public class SearchMenu extends javax.swing.JFrame {
         }
         else
         {
-            new NumberNotification().setVisible(true);
-            
-            
+            new NumberNotification( List).setVisible(true);                    
         }
  
     }//GEN-LAST:event_BuyActionPerformed
@@ -238,7 +236,11 @@ public class SearchMenu extends javax.swing.JFrame {
         }
         else
         {
-            new NumberNotification().setVisible(true);
+            try {
+                new EditInformation(currentList.get(List.getSelectedIndex())).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(SearchMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_EditActionPerformed
 
