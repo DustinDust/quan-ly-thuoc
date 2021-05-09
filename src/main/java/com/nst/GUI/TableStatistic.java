@@ -16,10 +16,10 @@ public class TableStatistic extends javax.swing.JFrame {
     /**
      * Creates new form TableStatistic
      */
-    public TableStatistic(int count,String[] id,String[] name,double[] pricein,double[] priceout,double[] numberOut,double[] profit,double Sum) {
+    public TableStatistic(int count,String[] id,String[] name,double[] pricein,double[] priceout,double[] numberOut,double[] profit,double Sum,String[] time) {
         initComponents();
  
-        CreateTable(count, id,name,pricein,priceout,numberOut,profit,Sum);
+        CreateTable(count, id,name,pricein,priceout,numberOut,profit,Sum,time);
     }
 
     /**
@@ -42,11 +42,11 @@ public class TableStatistic extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Code", "Name", "Price in", "Price out", "Number Out", "Profit"
+                "Code", "Name", "Price in", "Price out", "Number Out", "Profit", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -61,6 +61,7 @@ public class TableStatistic extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
         }
 
         Revenue.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -96,13 +97,13 @@ public class TableStatistic extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private void CreateTable(int count,String[] id, String[] name, double[] pricein, double[] priceout, double[] numberOut, double[] profit,double Sum) {
+    private void CreateTable(int count,String[] id, String[] name, double[] pricein, double[] priceout, double[] numberOut, double[] profit,double Sum,String[] time) {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         for(int i=0;i<count;i++)
         {
             model.addRow(new Object[]
         {
-            id[i],name[i],pricein[i],priceout[i],numberOut[i],profit[i]
+            id[i],name[i],pricein[i],priceout[i],numberOut[i],profit[i],time[i]
         });
         
         }

@@ -288,6 +288,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
             int n= listOfMedicine[0].length;
             double Sum=0;
             String id[] = new String[100];
+            String time[] = new String[100];
             String name[]= new String[100];
             double[] pricein= new double[100];
             double[] priceout= new double[100];
@@ -305,8 +306,9 @@ public class EconomyStatistic extends javax.swing.JFrame {
                 profit[i]= medicine.getCoeff()*numberOut[i];
                 count++;
                 Sum+=profit[i];
+                time[i]= (String) listOfMedicine[2][i];
             }
-        new TableStatistic(count,id,name,pricein,priceout,numberOut,profit,Sum).setVisible(true);
+        new TableStatistic(count,id,name,pricein,priceout,numberOut,profit,Sum,time).setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(EconomyStatistic.class.getName()).log(Level.SEVERE, null, ex);
         }
