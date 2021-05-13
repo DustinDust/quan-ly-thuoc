@@ -5,9 +5,8 @@
  */
 package com.nst.GUI;
 
-import com.nst.ExcelHelper;
+import com.nst.helper.*;
 import com.nst.Medicine.Medicine;
-import com.nst.MedicineHelper;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

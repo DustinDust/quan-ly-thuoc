@@ -116,6 +116,7 @@ public class ExcelHelper {
     public void Update() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(ExcelPath.toFile());
         List<Medicine> medicineList = MedicineHelper.MedList(ExcelHelper.MedData);
+        List<Medicine> OldMedList = MedicineHelper.MedList(OldMedData);
         XSSFSheet DataSheet = ExcelWorkBook.getSheetAt(0);
         int RowNum = DataSheet.getLastRowNum();
         for (Medicine med : medicineList) {
@@ -141,6 +142,26 @@ public class ExcelHelper {
                 //create new data in excel file
                 //System.out.println("HELLO");
                 createNewMedInData(med, RowNum + 1);
+            }
+        }
+        DataSheet = ExcelWorkBook.getSheetAt(0);
+        int NewRowNum = DataSheet.getLastRowNum();
+        for(Medicine OldMed: OldMedList)
+        {
+            if(!MedData.containsKey(OldMed.getCode()))
+            {
+                for(int i = 0; i <= NewRowNum; i++)
+                {
+                    XSSFRow CurrentRow = DataSheet.getRow(i);
+                    if(CurrentRow.getCell(1).getStringCellValue().equals(OldMed.getCode()))
+                    {
+                        //System.out.println(i);
+                        DataSheet.removeRow(CurrentRow);
+                        DataSheet.shiftRows(i + 1, NewRowNum, -1);
+                        i--;
+                        NewRowNum--;
+                    }
+                }
             }
         }
         ExcelWorkBook.write(outputStream);
