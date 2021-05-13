@@ -23,7 +23,7 @@ public class Main {
 
         try {
             ExcelHelper loaded = new ExcelHelper("data.xlsx");
-            loaded.Read();
+            ExcelHelper.Read();
             Medicine newMed = new LiquidMedicine("MX-t11", "Panadol", 122, 14, 1.9, "Yellowish", "Nein");
             MedicineHelper.ImportMed(newMed, 144, ExcelHelper.MedData);
             MedicineHelper.ImportMed(ExcelHelper.MedData.get("Ab"), 14, ExcelHelper.MedData);
@@ -31,12 +31,11 @@ public class Main {
             for (Medicine med: list1) {
                 System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getClass() + " - "+ med.getStocks());
             }
-            ExcelHelper.MedData.remove("Rx");
-            loaded.Update();
+            ExcelHelper.Update();
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        new MainMenu().setVisible(true);
+        new MainMenu().setVisible(true);
 
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
