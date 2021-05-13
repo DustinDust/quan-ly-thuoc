@@ -43,6 +43,7 @@ public class SearchMenu extends javax.swing.JFrame {
         Properties = new javax.swing.JMenuItem();
         Buy = new javax.swing.JMenuItem();
         Edit = new javax.swing.JMenuItem();
+        Import = new javax.swing.JMenuItem();
         SignOutButton = new javax.swing.JButton();
         HomeButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -81,6 +82,14 @@ public class SearchMenu extends javax.swing.JFrame {
             }
         });
         RightMouseClickedMenu.add(Edit);
+
+        Import.setText("Import");
+        Import.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportActionPerformed(evt);
+            }
+        });
+        RightMouseClickedMenu.add(Import);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(500, 200));
@@ -185,9 +194,8 @@ public class SearchMenu extends javax.swing.JFrame {
     private void OkSearchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkSearchingButtonActionPerformed
         // TODO add your handling code here:
         //Hàm tìm kiếm thuốc
-
         String SearchingResult = SearchingTextField.getText();
-        SearchResult result= new SearchResult(SearchingResult);
+        result= new SearchResult(SearchingResult);
         result.setVisible(true);
     }//GEN-LAST:event_OkSearchingButtonActionPerformed
 
@@ -244,6 +252,18 @@ public class SearchMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EditActionPerformed
 
+    private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
+        if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
+        {
+            new NoPermissionNot().setVisible(true);
+        }
+        else
+        {
+            new ImportNumber(currentList.get(List.getSelectedIndex())).setVisible(true);
+        }
+        
+    }//GEN-LAST:event_ImportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,6 +271,7 @@ public class SearchMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem Buy;
     private javax.swing.JMenuItem Edit;
     private javax.swing.JButton HomeButton;
+    private javax.swing.JMenuItem Import;
     public static javax.swing.JList<String> List;
     private javax.swing.JButton OkSearchingButton;
     private javax.swing.JMenuItem Properties;
@@ -262,7 +283,7 @@ public class SearchMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
     public static List<Medicine> currentList;
-    private void List_Display() {
+    public void List_Display() {
         DefaultListModel defaultList = new DefaultListModel();
         for(int i=0;i<currentList.size();i++)
         {
@@ -270,7 +291,5 @@ public class SearchMenu extends javax.swing.JFrame {
         }
         List.setModel(defaultList);
     }
-    public static void main(String[] args) {
-        new SearchMenu().setVisible(true);
-    }
+  public static SearchResult result;
 }

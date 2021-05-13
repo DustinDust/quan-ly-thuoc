@@ -15,7 +15,6 @@ public class NoPermissionNot extends javax.swing.JFrame {
      * Creates new form NoPermissionNot
      */
     public NoPermissionNot() {
-        setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -29,6 +28,9 @@ public class NoPermissionNot extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+
+        setLocation(new java.awt.Point(550, 250));
+        setPreferredSize(new java.awt.Dimension(550, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

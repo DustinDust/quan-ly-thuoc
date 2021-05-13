@@ -110,7 +110,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ManagerButtonActionPerformed
 
     private void CustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerButtonActionPerformed
-        SearchMenu newSearchMenu = new SearchMenu();
+
         newSearchMenu.setVisible(true);
         this.setVisible(false);
         role = false;
@@ -126,4 +126,5 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     public static boolean role;
+    public static SearchMenu newSearchMenu = new SearchMenu();
 }
