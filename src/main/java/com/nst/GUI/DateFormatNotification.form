@@ -40,6 +40,9 @@
           <Font name="Tahoma" size="16" style="3"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/image/Button-Close-icon-16.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Time format is incorrect!"/>
       </Properties>
     </Component>

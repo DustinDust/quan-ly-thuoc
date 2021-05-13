@@ -39,6 +39,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="13" style="3"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/image/Button-Close-icon-16.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Something went wrong(not enough medicines left). Try again!"/>
       </Properties>
     </Component>

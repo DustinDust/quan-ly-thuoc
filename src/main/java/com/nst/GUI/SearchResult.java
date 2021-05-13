@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.nst.GUI;
 
 import com.nst.helper.ExcelHelper;
@@ -16,18 +12,11 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 import static javax.swing.SwingUtilities.isRightMouseButton;
-
-/**
- *
- * @author admin
- */
 public class SearchResult extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SearchResult
-     */
     DefaultListModel dfl = new DefaultListModel();
     public SearchResult(String SearchingResult) {
+        //khoi tao cac component dong thoi hien thi thong tin tim kiem
         initComponents();
         MedicineList = MedicineHelper.MedSearch(SearchingResult, ExcelHelper.MedData);
         for(int i=0;i<MedicineList.size();i++)
@@ -38,6 +27,7 @@ public class SearchResult extends javax.swing.JFrame {
     }
     public void getCurrentMedicine()
     {
+        //lay thuoc duoc chon hien tai
         String currentName= SearchingList.getSelectedValue();
         for(int i=0;i<MedicineList.size();i++)
         {
@@ -48,9 +38,6 @@ public class SearchResult extends javax.swing.JFrame {
             }
         }
     }
-
-
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -99,6 +86,7 @@ public class SearchResult extends javax.swing.JFrame {
 
         SearchNotification.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         SearchNotification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SearchNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Search.png"))); // NOI18N
         SearchNotification.setText("Search Results");
         SearchNotification.setToolTipText("");
 
@@ -133,6 +121,7 @@ public class SearchResult extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SearchingListRightMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchingListRightMousePressed
+        //hien thi PopUp menu khi kich chuot phai vao list
         if(isRightMouseButton(evt))
         {
             RightMouseClickMenu.show(this, evt.getX()+10, evt.getY()+110);
@@ -140,14 +129,16 @@ public class SearchResult extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchingListRightMousePressed
 
     private void PropertiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PropertiesActionPerformed
-        // TODO add your handling code here:
+        // hien thi cac thuoc tinh cua thuoc
         getCurrentMedicine();
         new MedicineProperties(currentMedicine).setVisible(true);
     }//GEN-LAST:event_PropertiesActionPerformed
 
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
         getCurrentMedicine();
-        if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
+        //chuc nang chinh sua thong tin
+        //neu la nguoi mua hang thi khoa chuc nang nay
+        if(!MainMenu.role)              
         {
             new NoPermissionNot().setVisible(true);
         }
@@ -162,7 +153,9 @@ public class SearchResult extends javax.swing.JFrame {
     }//GEN-LAST:event_EditActionPerformed
 
     private void BuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyActionPerformed
-        if(MainMenu.role)              //neu la nguoi quan ly thi khoa chuc nang mua hang
+        //chuc nang mua hang
+        //neu la nguoi quan ly thi khoa chuc nang nay
+        if(MainMenu.role)              
         {
             new NoPermissionNot().setVisible(true);
         }
@@ -173,7 +166,9 @@ public class SearchResult extends javax.swing.JFrame {
     }//GEN-LAST:event_BuyActionPerformed
 
     private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
-        if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
+        //chuc nang nhap thuoc vao kho hang
+        //neu la nguoi mua hang thi khoa chuc nang nay
+        if(!MainMenu.role)              
         {
             new NoPermissionNot().setVisible(true);
         }
@@ -185,9 +180,6 @@ public class SearchResult extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ImportActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Buy;
     private javax.swing.JMenuItem Edit;

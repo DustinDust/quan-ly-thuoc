@@ -36,12 +36,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        new MainMenu().setVisible(true);
-
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MainMenu().setVisible(true);
-//            }
-//        });
-    }
+        new MainMenu().setVisible(true);
+}
 }
