@@ -5,18 +5,17 @@
  */
 package com.nst.GUI;
 
-import com.nst.ExcelHelper;
+import com.nst.helper.ExcelHelper;
 import com.nst.Medicine.Medicine;
-import com.nst.MedicineHelper;
+import com.nst.helper.MedicineHelper;
 import java.io.IOException;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JTable;
+
 import static javax.swing.SwingUtilities.isRightMouseButton;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *

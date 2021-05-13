@@ -97,8 +97,7 @@ public class Medicine {
     String stocks = String.valueOf(this.stocks);
     String priceIN = String.valueOf(this.priceIN);
     String coeff = String.valueOf(this.coeff);
-    String[] info = { code, name, stocks, priceIN, coeff, color, shape, };
-    return info;
+    return new String[]{ code, name, stocks, priceIN, coeff, color, shape, };
   }
 
   public void addStocks(double amount) {

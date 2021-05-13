@@ -5,10 +5,10 @@
  */
 package com.nst.GUI;
 
-import com.nst.ExcelHelper;
+import com.nst.helper.ExcelHelper;
 import static com.nst.GUI.SearchMenu.currentList;
 import com.nst.Medicine.Medicine;
-import com.nst.MedicineHelper;
+import com.nst.helper.MedicineHelper;
 import javax.swing.JList;
 
 /**

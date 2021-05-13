@@ -2,14 +2,12 @@ package com.nst.GUI;
 
 
 import com.nst.Medicine.Medicine;
-import com.nst.MedicineHelper;
+import com.nst.helper.MedicineHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

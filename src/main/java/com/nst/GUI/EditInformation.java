@@ -5,9 +5,11 @@
  */
 package com.nst.GUI;
 
-import com.nst.*;
 import com.nst.Medicine.Medicine;
-import static com.nst.MedicineHelper.Edit;
+import com.nst.helper.ExcelHelper;
+import com.nst.helper.MedicineHelper;
+
+import static com.nst.helper.MedicineHelper.Edit;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;

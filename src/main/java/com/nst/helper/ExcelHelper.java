@@ -1,4 +1,4 @@
-package com.nst;
+package com.nst.helper;
 
 //Các hàm hỗ trợ thao tác với file excel vô đây
 
@@ -10,6 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.xml.crypto.Data;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -42,12 +43,19 @@ public class ExcelHelper {
         for (int i = 0; i <= lastRowNum; i++) {
             //đưa khối try catch vào trong vòng for để bỏ qua các dòng trong excel bị lỗi;
             try {
-                Medicine random;
+                Medicine random, randomToSave;
                 XSSFRow currentRow = ExcelSheetData.getRow(i);
                 double dataType = currentRow.getCell(0).getNumericCellValue();
                 switch ((int) dataType) {
                     case MedicineType.TYPE_VIEN: {
                         random = new Tablets(currentRow.getCell(1).getStringCellValue(),
+                                currentRow.getCell(2).getStringCellValue(),
+                                currentRow.getCell(5).getNumericCellValue(),
+                                currentRow.getCell(4).getNumericCellValue(),
+                                currentRow.getCell(3).getNumericCellValue(),
+                                currentRow.getCell(6).getStringCellValue(),
+                                currentRow.getCell(7).getStringCellValue());
+                        randomToSave = new Tablets(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
                                 currentRow.getCell(4).getNumericCellValue(),
@@ -64,10 +72,24 @@ public class ExcelHelper {
                                 currentRow.getCell(3).getNumericCellValue(),
                                 currentRow.getCell(6).getStringCellValue(),
                                 currentRow.getCell(7).getStringCellValue());
+                        randomToSave = new LiquidMedicine(currentRow.getCell(1).getStringCellValue(),
+                                currentRow.getCell(2).getStringCellValue(),
+                                currentRow.getCell(5).getNumericCellValue(),
+                                currentRow.getCell(4).getNumericCellValue(),
+                                currentRow.getCell(3).getNumericCellValue(),
+                                currentRow.getCell(6).getStringCellValue(),
+                                currentRow.getCell(7).getStringCellValue());
                         break;
                     }
                     case MedicineType.TYPE_BOT: {
                         random = new PowderedMedicine(currentRow.getCell(1).getStringCellValue(),
+                                currentRow.getCell(2).getStringCellValue(),
+                                currentRow.getCell(5).getNumericCellValue(),
+                                currentRow.getCell(4).getNumericCellValue(),
+                                currentRow.getCell(3).getNumericCellValue(),
+                                currentRow.getCell(6).getStringCellValue(),
+                                currentRow.getCell(7).getStringCellValue());
+                        randomToSave =  new PowderedMedicine(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
                                 currentRow.getCell(4).getNumericCellValue(),
@@ -80,7 +102,7 @@ public class ExcelHelper {
                         continue;
                 }
                 MedData.put(random.getCode(), random);
-                OldMedData.put(random.getCode(), random);
+                OldMedData.put(random.getCode(), randomToSave);
                 //make a copy of MedData, but design it to be private so
                 //that it can't be changed.
             } catch (Exception e) {
@@ -101,31 +123,57 @@ public class ExcelHelper {
                 //check Medicine object
                 Medicine currentMed = OldMedData.get(med.getCode());
                 if (currentMed.check(med) < 0) {
+                    //Theo ly thuyet, khi da kiem tra containsKey, truong hop check < 0 se ko xay ra
                     //if somehow we end up here, might as well add it to Excel Data
-                    createNewMedInData(med, outputStream, RowNum + 1);
+                    //System.out.println("Nohoaof");
+                    createNewMedInData(med, RowNum + 1);
                 } else if (currentMed.check(med) == 0) {
                     //update that exact medicine data in excel files
-                    for (int i = 0; i < RowNum; i++) {
+                    for (int i = 0; i < RowNum + 1; i++) {
                         XSSFRow currentRow = DataSheet.getRow(i);
-                        String key = currentRow.getCell(1).getStringCellValue();   //code is always with
+                        String key = currentRow.getCell(1).getStringCellValue();
                         if (med.getCode().equals(key)) {
-                            createNewMedInData(med, outputStream, i+1);
+                            editExistedMedInData(med, i);
                         }
-                        ExcelWorkBook.write(outputStream);
                     }
                 }
             } else {
                 //create new data in excel file
-                createNewMedInData(med, outputStream, RowNum + 1);
+                //System.out.println("HELLO");
+                createNewMedInData(med, RowNum + 1);
             }
         }
-        outputStream.flush();
+        ExcelWorkBook.write(outputStream);
         outputStream.close();
     }
 
-    private void createNewMedInData(Medicine newMed, FileOutputStream outputStream, int row) throws IOException {
+    private void editExistedMedInData(Medicine newMedData, int row) throws  IOException
+    {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
-        XSSFRow CreatedRow = dataSheet.createRow(row);
+        XSSFRow currentRow = dataSheet.getRow(row);
+        int type = -1;
+        if (newMedData.getClass().toString().equals("class com.nst.Medicine.Tablet")) {
+            type = MedicineType.TYPE_VIEN;
+        }
+        if (newMedData.getClass().toString().equals("class com.nst.Medicine.LiquidMedicine")) {
+            type = MedicineType.TYPE_NUOC;
+        }
+        if (newMedData.getClass().toString().equals("class com.nst.Medicine.PowderedMedicine")) {
+            type = MedicineType.TYPE_BOT;
+        }
+        currentRow.getCell(0).setCellValue((double) type);
+        currentRow.getCell(1).setCellValue(newMedData.getCode());
+        currentRow.getCell(2).setCellValue(newMedData.getName());
+        currentRow.getCell(3).setCellValue(newMedData.getCoeff());
+        currentRow.getCell(4).setCellValue(newMedData.getPriceIn());
+        currentRow.getCell(5).setCellValue(newMedData.getStocks());
+        currentRow.getCell(6).setCellValue(newMedData.getColor());
+        currentRow.getCell(7).setCellValue(newMedData.getShape());
+    }
+
+    private void createNewMedInData(Medicine newMed, int row) throws IOException {
+        XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
+        XSSFRow CreatedRow =  dataSheet.createRow(row);
         for (int i = 0; i < 8; i++) {
             CreatedRow.createCell(i);
         }
@@ -148,7 +196,6 @@ public class ExcelHelper {
         CreatedRow.getCell(5).setCellValue(newMed.getStocks());
         CreatedRow.getCell(6).setCellValue(newMed.getColor());
         CreatedRow.getCell(7).setCellValue(newMed.getShape());
-        ExcelWorkBook.write(outputStream);
     }
 
 }
