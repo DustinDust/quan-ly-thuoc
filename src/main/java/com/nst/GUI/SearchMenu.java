@@ -29,7 +29,7 @@ public class SearchMenu extends javax.swing.JFrame {
         Properties = new javax.swing.JMenuItem();
         Buy = new javax.swing.JMenuItem();
         Edit = new javax.swing.JMenuItem();
-        Import = new javax.swing.JMenuItem();
+        ImportNumber = new javax.swing.JMenuItem();
         HomeButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         OkSearchingButton = new javax.swing.JButton();
@@ -38,6 +38,7 @@ public class SearchMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         List = new javax.swing.JList<>();
         SaveButton = new javax.swing.JButton();
+        ImportButton = new javax.swing.JButton();
 
         Properties.setText("Properties");
         Properties.addActionListener(new java.awt.event.ActionListener() {
@@ -63,13 +64,13 @@ public class SearchMenu extends javax.swing.JFrame {
         });
         RightMouseClickedMenu.add(Edit);
 
-        Import.setText("Import");
-        Import.addActionListener(new java.awt.event.ActionListener() {
+        ImportNumber.setText("Import Number");
+        ImportNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImportActionPerformed(evt);
+                ImportNumberActionPerformed(evt);
             }
         });
-        RightMouseClickedMenu.add(Import);
+        RightMouseClickedMenu.add(ImportNumber);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(500, 200));
@@ -97,6 +98,7 @@ public class SearchMenu extends javax.swing.JFrame {
         StatisticButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         StatisticButton.setText("Revenue Statistic");
         StatisticButton.setActionCommand("");
+        StatisticButton.setAutoscrolls(true);
         StatisticButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StatisticButtonActionPerformed(evt);
@@ -117,21 +119,33 @@ public class SearchMenu extends javax.swing.JFrame {
             }
         });
 
+        ImportButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        ImportButton.setText("Import new medicine");
+        ImportButton.setActionCommand("");
+        ImportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(119, 119, 119)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StatisticButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(SearchingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(OkSearchingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                        .addComponent(OkSearchingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(StatisticButton, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(ImportButton)))
+                .addContainerGap(169, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(HomeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,7 +164,9 @@ public class SearchMenu extends javax.swing.JFrame {
                     .addComponent(OkSearchingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SearchingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(StatisticButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(StatisticButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
         );
@@ -227,7 +243,7 @@ public class SearchMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EditActionPerformed
 
-    private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
+    private void ImportNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportNumberActionPerformed
         //chuc nang nhap thuoc vao kho hang
         //neu la nguoi quan ly thi khoa chuc nang nay
         if(!MainMenu.role)              
@@ -239,17 +255,36 @@ public class SearchMenu extends javax.swing.JFrame {
             new ImportNumber(currentList.get(List.getSelectedIndex())).setVisible(true);
         }
         
-    }//GEN-LAST:event_ImportActionPerformed
+    }//GEN-LAST:event_ImportNumberActionPerformed
     
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-       
+        try {
+            com.nst.helper.ExcelHelper.Update();
+        } catch (IOException ex) {
+            Logger.getLogger(SearchMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
+        //chuc nang nhap thuoc vao kho hang
+        //neu la nguoi quan ly thi khoa chuc nang nay
+        if(!MainMenu.role)              
+        {
+            new NoPermissionNot().setVisible(true);
+        }
+        else
+        {
+        new ImportNewMedicine().setVisible(true);
+        }            
+    }//GEN-LAST:event_ImportButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Buy;
     private javax.swing.JMenuItem Edit;
     private javax.swing.JButton HomeButton;
-    private javax.swing.JMenuItem Import;
+    private javax.swing.JButton ImportButton;
+    private javax.swing.JMenuItem ImportNumber;
     public javax.swing.JList<String> List;
     private javax.swing.JButton OkSearchingButton;
     private javax.swing.JMenuItem Properties;

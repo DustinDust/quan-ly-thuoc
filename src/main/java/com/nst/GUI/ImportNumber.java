@@ -63,6 +63,7 @@ public class ImportNumber extends javax.swing.JFrame {
         int number = Integer.parseInt(Number.getText());
         com.nst.helper.MedicineHelper.ImportMed(current,number, ExcelHelper.MedData);
         this.setVisible(false);
+        new ImportSuccess().setVisible(true);
     }//GEN-LAST:event_OKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
