@@ -26,9 +26,9 @@ public class ExcelHelper {
     //old data from load, used to compare when update
     private static HashMap<String, Medicine> OldMedData = new HashMap<>();
     //Path của file excel
-    private final Path ExcelPath;
+    private static Path ExcelPath = null;
     //Workbook của excel;
-    private final XSSFWorkbook ExcelWorkBook;
+    private static XSSFWorkbook ExcelWorkBook = null  ;
 
     public ExcelHelper(String excelPath) throws IOException {
         ExcelPath = Paths.get(excelPath).toRealPath();
@@ -37,7 +37,7 @@ public class ExcelHelper {
     }
 
     //Đọc dữ liệu trong excel vào data
-    public HashMap<String, Medicine> Read() {
+    public static HashMap<String, Medicine> Read() {
         XSSFSheet ExcelSheetData = ExcelWorkBook.getSheetAt(0);
         int lastRowNum = ExcelSheetData.getLastRowNum();
         for (int i = 0; i <= lastRowNum; i++) {
@@ -113,7 +113,7 @@ public class ExcelHelper {
     }
 
     //update file excel;
-    public void Update() throws IOException {
+    public static void  Update() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(ExcelPath.toFile());
         List<Medicine> medicineList = MedicineHelper.MedList(ExcelHelper.MedData);
         List<Medicine> OldMedList = MedicineHelper.MedList(OldMedData);
@@ -126,10 +126,10 @@ public class ExcelHelper {
                 if (currentMed.check(med) < 0) {
                     //Theo ly thuyet, khi da kiem tra containsKey, truong hop check < 0 se ko xay ra
                     //if somehow we end up here, might as well add it to Excel Data
-                    //System.out.println("Nohoaof");
                     createNewMedInData(med, RowNum + 1);
                 } else if (currentMed.check(med) == 0) {
-                    //update that exact medicine data in excel files
+                    // thuoc da ton tai trong bo nho, nhung data bi khac.
+                    // update that exact medicine data in excel files
                     for (int i = 0; i < RowNum + 1; i++) {
                         XSSFRow currentRow = DataSheet.getRow(i);
                         String key = currentRow.getCell(1).getStringCellValue();
@@ -139,11 +139,13 @@ public class ExcelHelper {
                     }
                 }
             } else {
-                //create new data in excel file
-                //System.out.println("HELLO");
+                // create new data in excel file
+                // neu thuoc trong data moi khong ton tai trong data cu, tao thuoc moi
                 createNewMedInData(med, RowNum + 1);
             }
         }
+
+        //Xoa cac thuoc ton tai trong data cu, nhung trong data moi da bi xoa di (code only)
         DataSheet = ExcelWorkBook.getSheetAt(0);
         int NewRowNum = DataSheet.getLastRowNum();
         for(Medicine OldMed: OldMedList)
@@ -168,7 +170,7 @@ public class ExcelHelper {
         outputStream.close();
     }
 
-    private void editExistedMedInData(Medicine newMedData, int row) throws  IOException
+    private static void editExistedMedInData(Medicine newMedData, int row) throws  IOException
     {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
         XSSFRow currentRow = dataSheet.getRow(row);
@@ -192,7 +194,7 @@ public class ExcelHelper {
         currentRow.getCell(7).setCellValue(newMedData.getShape());
     }
 
-    private void createNewMedInData(Medicine newMed, int row) throws IOException {
+    private static void createNewMedInData(Medicine newMed, int row) throws IOException {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
         XSSFRow CreatedRow =  dataSheet.createRow(row);
         for (int i = 0; i < 8; i++) {
