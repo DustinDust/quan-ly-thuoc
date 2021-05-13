@@ -31,7 +31,7 @@ public class Main {
             for (Medicine med: list1) {
                 System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getClass() + " - "+ med.getStocks());
             }
-
+            ExcelHelper.MedData.remove("Rx");
             loaded.Update();
         } catch (Exception e) {
             e.printStackTrace();
