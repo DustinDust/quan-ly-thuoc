@@ -58,6 +58,7 @@ public class SearchResult extends javax.swing.JFrame {
         Properties = new javax.swing.JMenuItem();
         Buy = new javax.swing.JMenuItem();
         Edit = new javax.swing.JMenuItem();
+        Import = new javax.swing.JMenuItem();
         SearchNotification = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         SearchingList = new javax.swing.JList<>();
@@ -85,6 +86,14 @@ public class SearchResult extends javax.swing.JFrame {
             }
         });
         RightMouseClickMenu.add(Edit);
+
+        Import.setText("Import");
+        Import.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportActionPerformed(evt);
+            }
+        });
+        RightMouseClickMenu.add(Import);
 
         setMinimumSize(new java.awt.Dimension(650, 450));
 
@@ -163,12 +172,26 @@ public class SearchResult extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BuyActionPerformed
 
+    private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
+        if(!MainMenu.role)              //neu la nguoi mua hang thi khoa chuc nang chinh sua
+        {
+            new NoPermissionNot().setVisible(true);
+        }
+        else
+        {
+            getCurrentMedicine();
+            new ImportNumber(currentMedicine).setVisible(true);
+        }
+
+    }//GEN-LAST:event_ImportActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Buy;
     private javax.swing.JMenuItem Edit;
+    private javax.swing.JMenuItem Import;
     private javax.swing.JMenuItem Properties;
     private javax.swing.JPopupMenu RightMouseClickMenu;
     private javax.swing.JLabel SearchNotification;

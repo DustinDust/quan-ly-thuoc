@@ -165,7 +165,6 @@ public class EditInformation extends javax.swing.JFrame {
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
         // TODO add your handling code here:
-        System.out.println("aaaaaaaa");
         try {
             Edit(currentMedicine.getCode(), ExcelHelper.MedData, NewCodeText.getText(), NewNameText.getText(), Double.parseDouble(NewCoeffText.getText()), Double.parseDouble(NewPriceInText.getText()), NewColorText.getText(), NewShapeText.getText());
         } catch (IOException ex) {
@@ -177,6 +176,7 @@ public class EditInformation extends javax.swing.JFrame {
                 System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getStocks() + " - " +  med.getClass());
             }
             new UpdateNotification().setVisible(true);
+            UpdateInformation();
     }//GEN-LAST:event_OKActionPerformed
 
     /**
@@ -200,6 +200,12 @@ public class EditInformation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
     public static Medicine currentMedicine;
+    public void UpdateInformation()
+    {
+        MainMenu.newSearchMenu.List_Display();
+        if(SearchMenu.result != null)
+            SearchMenu.result.setVisible(false);
+    }
     private void SetLabel(Medicine medicine) throws IOException {
         //lay noi dung thuoc cu
         NewCodeText.setText(medicine.getCode());
