@@ -2,7 +2,7 @@ package com.nst.Medicine;
 
 import java.lang.reflect.Constructor;
 
-public class Medicine {
+public abstract class Medicine {
 
   private String code;
   private String name;
