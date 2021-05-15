@@ -173,7 +173,7 @@ public class ExcelHelper {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
         XSSFRow currentRow = dataSheet.getRow(row);
         int type = -1;
-        if (newMedData.getClass().toString().equals("class com.nst.Medicine.Tablet")) {
+        if (newMedData.getClass().toString().equals("class com.nst.Medicine.Tablets")) {
             type = MedicineType.TYPE_VIEN;
         }
         if (newMedData.getClass().toString().equals("class com.nst.Medicine.LiquidMedicine")) {

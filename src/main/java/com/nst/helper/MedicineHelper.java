@@ -148,7 +148,7 @@ public class MedicineHelper {
                     med.setColor(thuocObject.getColor());
                     med.setCoeff(thuocObject.getCoeff());
                     med.setName(thuocObject.getName());
-                    med.setStocks(thuocObject.getStocks());
+                    med.addStocks(amount);
                     med.setPriceIn(thuocObject.getPriceIn());
                 }
                 else if(thuocObject.check(med) == -1)
