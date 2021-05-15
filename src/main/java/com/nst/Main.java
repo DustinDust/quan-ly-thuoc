@@ -22,17 +22,8 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            ExcelHelper loaded = new ExcelHelper("data.xlsx");
-            loaded.Read();
-            Medicine newMed = new LiquidMedicine("MX-t11", "Panadol", 122, 14, 1.9, "Yellowish", "Nein");
-            MedicineHelper.ImportMed(newMed, 144, ExcelHelper.MedData);
-            MedicineHelper.ImportMed(ExcelHelper.MedData.get("Ab"), 14, ExcelHelper.MedData);
-            List<Medicine> list1 = MedicineHelper.MedList(ExcelHelper.MedData);
-            for (Medicine med: list1) {
-                System.out.println(med.getCode() + " - " + med.getName() + " - " + med.getClass() + " - "+ med.getStocks());
-            }
-            ExcelHelper.MedData.remove("Rx");
-            loaded.Update();
+            ExcelHelper.SetPath("data.xlsx");
+            ExcelHelper.Read();
         } catch (Exception e) {
             e.printStackTrace();
         }

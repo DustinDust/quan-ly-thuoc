@@ -124,20 +124,29 @@ public class MedicineHelper {
         //NullPointer Exception nghĩa là chưa có data về bill/ lỗi thư mục bill, nên xử lý;
     }
 
+    public static boolean checkExistMedicine(String key, HashMap<String, Medicine> MedData)
+    {
+        return MedData.containsKey(key);
+    }
+
     //nhập thuốc, basically là update stocks;
     public static void ImportMed(Medicine thuocObject, double amount, HashMap<String, Medicine> data)
     {
-        if(data.containsKey(thuocObject.getCode()))
+        boolean update = false;
+        List<Medicine> dataList = MedicineHelper.MedList(ExcelHelper.MedData);
+        for(Medicine med: dataList)
         {
-
-            Medicine MedicineToUpdate = data.get(thuocObject.getCode());
-            MedicineToUpdate.addStocks(amount);
-            data.put(MedicineToUpdate.getCode(), MedicineToUpdate);
+            if(thuocObject.getCode().equals(med.getCode()))
+            {
+                med.addStocks(amount);
+                update = true;
+            }
         }
-        else {
-            thuocObject.addStocks(amount);
+        if(!update)
+        {
             data.put(thuocObject.getCode(), thuocObject);
         }
+
     }
 
     //xuất thuốc, basically update stocks với kiểm tra điều kiện âm và có báo lỗi

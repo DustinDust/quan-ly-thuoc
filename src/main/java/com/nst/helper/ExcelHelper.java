@@ -9,8 +9,6 @@ import com.nst.Medicine.Tablets;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import javax.xml.crypto.Data;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,7 +28,7 @@ public class ExcelHelper {
     //Workbook của excel;
     private static XSSFWorkbook ExcelWorkBook = null  ;
 
-    public ExcelHelper(String excelPath) throws IOException {
+    public static void SetPath(String excelPath) throws Exception {
         ExcelPath = Paths.get(excelPath).toRealPath();
         FileInputStream inputStream = new FileInputStream(ExcelPath.toFile());
         ExcelWorkBook = new XSSFWorkbook(inputStream);
