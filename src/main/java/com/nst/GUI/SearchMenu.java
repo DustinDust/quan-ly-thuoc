@@ -263,7 +263,7 @@ public class SearchMenu extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(SearchMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        new SaveData().setVisible(true);
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
