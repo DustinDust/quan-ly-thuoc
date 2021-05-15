@@ -5,7 +5,7 @@ package com.nst.helper;
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
 import com.nst.Medicine.PowderedMedicine;
-import com.nst.Medicine.Tablets;
+import com.nst.Medicine.TabletsMedicine;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -46,14 +46,14 @@ public class ExcelHelper {
                 double dataType = currentRow.getCell(0).getNumericCellValue();
                 switch ((int) dataType) {
                     case MedicineType.TYPE_VIEN: {
-                        random = new Tablets(currentRow.getCell(1).getStringCellValue(),
+                        random = new TabletsMedicine(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
                                 currentRow.getCell(4).getNumericCellValue(),
                                 currentRow.getCell(3).getNumericCellValue(),
                                 currentRow.getCell(6).getStringCellValue(),
                                 currentRow.getCell(7).getStringCellValue());
-                        randomToSave = new Tablets(currentRow.getCell(1).getStringCellValue(),
+                        randomToSave = new TabletsMedicine(currentRow.getCell(1).getStringCellValue(),
                                 currentRow.getCell(2).getStringCellValue(),
                                 currentRow.getCell(5).getNumericCellValue(),
                                 currentRow.getCell(4).getNumericCellValue(),

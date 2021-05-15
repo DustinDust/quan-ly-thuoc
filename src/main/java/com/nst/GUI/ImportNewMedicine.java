@@ -4,7 +4,7 @@ package com.nst.GUI;
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
 import com.nst.Medicine.PowderedMedicine;
-import com.nst.Medicine.Tablets;
+import com.nst.Medicine.TabletsMedicine;
 import com.nst.helper.ExcelHelper;
 import static com.nst.helper.MedicineHelper.ImportMed;
 
@@ -212,7 +212,7 @@ public class ImportNewMedicine extends javax.swing.JFrame {
         }
         else
         {
-            newMedicine = new Tablets(newCode,newName,newStocks,newPricein,newCoeff,newColor,newShape);
+            newMedicine = new TabletsMedicine(newCode,newName,newStocks,newPricein,newCoeff,newColor,newShape);
         }
         ImportMed(newMedicine,newStocks, ExcelHelper.MedData);
         new ImportSuccess().setVisible(true);

@@ -3,8 +3,7 @@ package com.nst.helper;
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
 import com.nst.Medicine.PowderedMedicine;
-import com.nst.Medicine.Tablets;
-import org.apache.commons.math3.exception.NumberIsTooLargeException;
+import com.nst.Medicine.TabletsMedicine;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -97,9 +96,9 @@ public class MedicineHelper {
                 if(MedType.equals(LiquidMedicine.class.toString())) {
                     foundMed = new LiquidMedicine(code, name, 0, priceIn, coeff, null, null);
                 }
-                if(MedType.equals(Tablets.class.toString()))
+                if(MedType.equals(TabletsMedicine.class.toString()))
                 {
-                    foundMed = new Tablets(code, name, 0, priceIn, coeff, null, null);
+                    foundMed = new TabletsMedicine(code, name, 0, priceIn, coeff, null, null);
                 }
                 if(MedType.equals(PowderedMedicine.class.toString()))
                 {

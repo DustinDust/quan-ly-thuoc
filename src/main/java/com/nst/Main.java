@@ -6,13 +6,7 @@
 package com.nst;
 
 import com.nst.GUI.MainMenu;
-import com.nst.Medicine.LiquidMedicine;
-import com.nst.Medicine.Medicine;
-import com.nst.Medicine.Tablets;
 import com.nst.helper.ExcelHelper;
-import com.nst.helper.MedicineHelper;
-
-import java.util.List;
 
 /**
  * @author admin

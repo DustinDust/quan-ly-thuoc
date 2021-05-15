@@ -1,7 +1,5 @@
 package com.nst.Medicine;
 
-import java.lang.reflect.Constructor;
-
 public abstract class Medicine {
 
   private String code;
@@ -38,10 +36,6 @@ public abstract class Medicine {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public void setStocks(double stocks) {
-    this.stocks = stocks;
   }
 
   public void setPriceIn(double priceIN) {
@@ -91,13 +85,6 @@ public abstract class Medicine {
   public void priceUpdate(double priceIN, double coeff) {
     setPriceIn(priceIN);
     setCoeff(coeff);
-  }
-
-  public String[] info() {
-    String stocks = String.valueOf(this.stocks);
-    String priceIN = String.valueOf(this.priceIN);
-    String coeff = String.valueOf(this.coeff);
-    return new String[]{ code, name, stocks, priceIN, coeff, color, shape, };
   }
 
   public void addStocks(double amount) {
