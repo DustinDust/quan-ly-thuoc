@@ -5,9 +5,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class TableStatistic extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TableStatistic
-     */
     public TableStatistic(int count,String[] id,String[] name,double[] pricein,double[] priceout,double[] numberOut,double[] profit,double Sum,String[] time) {
         setLocationRelativeTo(null);
         initComponents();
