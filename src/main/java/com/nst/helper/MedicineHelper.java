@@ -142,7 +142,7 @@ public class MedicineHelper {
                 if(thuocObject.check(med) == 1) {
                     med.addStocks(amount);
                 }
-                if(thuocObject.check(med) ==0)
+                if(thuocObject.check(med) ==0 && thuocObject.getClass().equals(med.getClass()))
                 {
                     med.setShape(thuocObject.getShape());
                     med.setColor(thuocObject.getColor());
@@ -151,7 +151,7 @@ public class MedicineHelper {
                     med.addStocks(amount);
                     med.setPriceIn(thuocObject.getPriceIn());
                 }
-                else if(thuocObject.check(med) == -1)
+                else if(thuocObject.check(med) == -1 || !thuocObject.getClass().equals(med.getClass()))
                 {
                     update = false;
                 }
