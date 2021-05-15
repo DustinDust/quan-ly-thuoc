@@ -280,7 +280,7 @@ public class EconomyStatistic extends javax.swing.JFrame {
                 pricein[i]= medicine.getPriceIn();
                 priceout[i]= medicine.getPriceIn()*medicine.getCoeff();
                 numberOut[i]= Double.parseDouble((String) listOfMedicine[1][i]);
-                profit[i]= medicine.getCoeff()*numberOut[i];
+                profit[i]= (priceout[i] - pricein[i])*numberOut[i];
                 count++;
                 Sum+=profit[i];
                 time[i]= (String) listOfMedicine[2][i];

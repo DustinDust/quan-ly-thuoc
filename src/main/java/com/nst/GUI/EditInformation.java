@@ -154,10 +154,6 @@ public class EditInformation extends javax.swing.JFrame {
             UpdateInformation();
     }//GEN-LAST:event_OKActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CodeLabel;
     private javax.swing.JLabel CoeffLabel;
