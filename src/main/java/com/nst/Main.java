@@ -8,6 +8,7 @@ package com.nst;
 import com.nst.GUI.MainMenu;
 import com.nst.Medicine.LiquidMedicine;
 import com.nst.Medicine.Medicine;
+import com.nst.Medicine.Tablets;
 import com.nst.helper.ExcelHelper;
 import com.nst.helper.MedicineHelper;
 
@@ -22,7 +23,7 @@ public class Main {
         try {
             ExcelHelper.SetPath("data.xlsx");
             ExcelHelper.Read();
-//
+////
 //            List<Medicine> listdata = MedicineHelper.MedList(ExcelHelper.MedData);
 //            for (Medicine med : listdata) {
 //                System.out.println(med.getCode() + "-" + med.getName() + "-" + med.getStocks());
@@ -32,12 +33,12 @@ public class Main {
 //            for (Medicine med : listdata1) {
 //                System.out.println(med.getCode() + "-" + med.getName() + "-" + med.getStocks());
 //            }
-//            MedicineHelper.ImportMed(new LiquidMedicine("xjccx", "aiojfc", 12, 1, 1, "rd", "ja"), 12, ExcelHelper.MedData);
+//            MedicineHelper.ImportMed(new Tablets("MX-t11", "Tiffey", 12, 1, 1, "rd", "ja"), 12, ExcelHelper.MedData);
 //            List<Medicine> listdata2 = MedicineHelper.MedList(ExcelHelper.MedData);
 //            for (Medicine med : listdata2) {
 //                System.out.println(med.getCode() + "-" + med.getName() + "-" + med.getStocks());
 //            }
-            ExcelHelper.Update();
+//            ExcelHelper.Update();
         } catch (Exception e) {
             e.printStackTrace();
         }
