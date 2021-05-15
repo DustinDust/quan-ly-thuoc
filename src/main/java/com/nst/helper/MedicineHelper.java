@@ -138,8 +138,23 @@ public class MedicineHelper {
         {
             if(thuocObject.getCode().equals(med.getCode()))
             {
-                med.addStocks(amount);
                 update = true;
+                if(thuocObject.check(med) == 1) {
+                    med.addStocks(amount);
+                }
+                if(thuocObject.check(med) ==0)
+                {
+                    med.setShape(thuocObject.getShape());
+                    med.setColor(thuocObject.getColor());
+                    med.setCoeff(thuocObject.getCoeff());
+                    med.setName(thuocObject.getName());
+                    med.setStocks(thuocObject.getStocks());
+                    med.setPriceIn(thuocObject.getPriceIn());
+                }
+                else if(thuocObject.check(med) == -1)
+                {
+                    update = false;
+                }
             }
         }
         if(!update)
