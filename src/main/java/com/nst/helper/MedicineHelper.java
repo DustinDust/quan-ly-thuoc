@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class MedicineHelper {
 
-    private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy [HH-mm-ss]");
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy [HH-mm-ss]");
 
 
     //tìm danh sách các loại thuốc có chưa String key (trong mã hoặc trong tên)
@@ -121,11 +121,6 @@ public class MedicineHelper {
 
         //parse exception nghĩa là ngày tháng trong tên của file bill bị sai, cái này có thể ko cần xử lý
         //NullPointer Exception nghĩa là chưa có data về bill/ lỗi thư mục bill, nên xử lý;
-    }
-
-    public static boolean checkExistMedicine(String key, HashMap<String, Medicine> MedData)
-    {
-        return MedData.containsKey(key);
     }
 
     //nhập thuốc, basically là update stocks;
