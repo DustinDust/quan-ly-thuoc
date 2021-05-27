@@ -168,7 +168,8 @@ public class ExcelHelper {
         outputStream.close();
     }
 
-    private static void editExistedMedInData(Medicine newMedData, int row) {
+    private static void editExistedMedInData(Medicine newMedData, int row) throws  IOException
+    {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
         XSSFRow currentRow = dataSheet.getRow(row);
         int type = -1;
@@ -191,7 +192,7 @@ public class ExcelHelper {
         currentRow.getCell(7).setCellValue(newMedData.getShape());
     }
 
-    private static void createNewMedInData(Medicine newMed, int row) {
+    private static void createNewMedInData(Medicine newMed, int row) throws IOException {
         XSSFSheet dataSheet = ExcelWorkBook.getSheetAt(0);
         XSSFRow CreatedRow =  dataSheet.createRow(row);
         for (int i = 0; i < 8; i++) {
