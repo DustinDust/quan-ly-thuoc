@@ -1,7 +1,10 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.nst.GUI;
 
-import com.nst.Medicine.*;
 import com.nst.Medicine.Medicine;
 import javax.swing.DefaultListModel;
 
@@ -54,22 +57,9 @@ public class MedicineProperties extends javax.swing.JFrame {
     private void Result_Display() {
         DefaultListModel dlf = new DefaultListModel();
         ListOfProperties.setModel(dlf);
-        String donvi;
-        if("class com.nst.Medicine.PowderedMedicine".equals(currentMedicine.getClass().toString()))
-        {
-            donvi=" mg";
-        }
-        else if("class com.nst.Medicine.LiquidMedicine".equals(currentMedicine.getClass().toString()))
-        {
-            donvi=" ml";
-        }
-        else
-        {
-            donvi=" tablets";
-        }
         dlf.addElement("Name: "+currentMedicine.getName());
         dlf.addElement("Code: "+currentMedicine.getCode());
-        dlf.addElement("Numbers left: "+currentMedicine.getStocks()+donvi);
+        dlf.addElement("Numbers left: "+currentMedicine.getStocks());
         dlf.addElement("Price in: "+currentMedicine.getPriceIn());
         dlf.addElement("Coeff:  "+currentMedicine.getCoeff());
         dlf.addElement("Color: "+currentMedicine.getColor());
