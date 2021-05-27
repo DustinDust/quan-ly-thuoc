@@ -74,7 +74,7 @@ public class SearchResult extends javax.swing.JFrame {
         });
         RightMouseClickMenu.add(Edit);
 
-        Import.setText("Import Number");
+        Import.setText("Import");
         Import.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImportActionPerformed(evt);
